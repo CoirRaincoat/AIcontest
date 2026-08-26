@@ -1,0 +1,40 @@
+{
+  "method": "frozen SigLIP2 image embeddings + weighted linear classifier",
+  "model": "google/siglip2-base-patch16-384",
+  "train_manifest": "C:\\AI\\fire_detection\\siglip_data\\train.csv",
+  "val_manifest": "C:\\AI\\fire_detection\\siglip_data\\val.csv",
+  "train_counts": {
+    "no_fire": 181,
+    "fire": 699
+  },
+  "class_weights": {
+    "no_fire": 2.430939226519337,
+    "fire": 0.6294706723891274
+  },
+  "best_checkpoint_epoch": 9,
+  "best_checkpoint_val_loss": 0.327981561422348,
+  "final_val_loss": 0.327981561422348,
+  "metrics_at_threshold_0_5": {
+    "threshold": 0.5,
+    "precision": 0.9371069182389937,
+    "recall": 0.9030303030303031,
+    "f1": 0.9197530864197531,
+    "tp": 149,
+    "fp": 10,
+    "fn": 16,
+    "tn": 45
+  },
+  "best_validation_metrics": {
+    "threshold": 0.267,
+    "precision": 0.9,
+    "recall": 0.9818181818181818,
+    "f1": 0.9391304347826087,
+    "tp": 162,
+    "fp": 18,
+    "fn": 3,
+    "tn": 37
+  },
+  "checkpoint": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_linear_v1\\best_head.pt",
+  "history": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_linear_v1\\training_history.csv",
+  "val_scores": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_linear_v1\\val_scores.csv"
+}

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from ultralytics import YOLO; YOLO('runs/detect/runs/train/fire_yolov8n_960/weights/last.pt').train(resume=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Þ±¶ûÀòÌØ\AppData\Local\Programs\Python\Python313\Lib\site-packages\ultralytics\__init__.py", line 13, in <module>
+    from ultralytics.utils import ASSETS, SETTINGS
+  File "C:\Users\Þ±¶ûÀòÌØ\AppData\Local\Programs\Python\Python313\Lib\site-packages\ultralytics\utils\__init__.py", line 26, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'

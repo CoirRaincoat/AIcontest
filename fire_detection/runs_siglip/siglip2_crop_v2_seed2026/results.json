@@ -1,0 +1,40 @@
+{
+  "method": "frozen SigLIP2 image embeddings + weighted linear classifier",
+  "model": "google/siglip2-base-patch16-384",
+  "train_manifest": "C:\\AI\\fire_detection\\crop_data_v2\\train.csv",
+  "val_manifest": "C:\\AI\\fire_detection\\crop_data_v2\\val.csv",
+  "train_counts": {
+    "no_fire": 1050,
+    "fire": 3208
+  },
+  "class_weights": {
+    "no_fire": 2.0276190476190474,
+    "fire": 0.6636533665835411
+  },
+  "best_checkpoint_epoch": 3,
+  "best_checkpoint_val_loss": 0.26381269097328186,
+  "final_val_loss": 0.26381269097328186,
+  "metrics_at_threshold_0_5": {
+    "threshold": 0.5,
+    "precision": 0.9305331179321487,
+    "recall": 0.8558692421991084,
+    "f1": 0.891640866873065,
+    "tp": 576,
+    "fp": 43,
+    "fn": 97,
+    "tn": 307
+  },
+  "best_validation_metrics": {
+    "threshold": 0.169,
+    "precision": 0.8741633199464525,
+    "recall": 0.9702823179791976,
+    "f1": 0.9197183098591549,
+    "tp": 653,
+    "fp": 94,
+    "fn": 20,
+    "tn": 256
+  },
+  "checkpoint": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_crop_v2_seed2026\\best_head.pt",
+  "history": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_crop_v2_seed2026\\training_history.csv",
+  "val_scores": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_crop_v2_seed2026\\val_scores.csv"
+}

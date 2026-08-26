@@ -1,0 +1,27 @@
+{
+  "rule": "at least one YOLO positive AND SigLIP2 positive",
+  "image_count": 220,
+  "positive_count": 171,
+  "negative_count": 49,
+  "siglip_checkpoint": "C:\\AI\\fire_detection\\runs_siglip\\siglip2_linear_seed2026\\best_head.pt",
+  "siglip_threshold": 0.22,
+  "yolo": {
+    "m": {
+      "weights": "C:\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26m_960\\weights\\best.pt",
+      "conf": 0.1
+    },
+    "s": {
+      "weights": "C:\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26s_960\\weights\\best.pt",
+      "conf": 0.2
+    },
+    "s_aug": {
+      "weights": "C:\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26s_aug_960\\weights\\best.pt",
+      "conf": 0.2
+    },
+    "imgsz": 960,
+    "iou": 0.45,
+    "min_area": 0.0
+  },
+  "submission_file": "C:\\AI\\fire_detection\\outputs\\val_pred_best_seed2026_yolo_fusion_live.json",
+  "details_file": "C:\\AI\\fire_detection\\outputs\\val_pred_best_seed2026_yolo_fusion_live_details.csv"
+}

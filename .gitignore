@@ -1,0 +1,24 @@
+# 数据集与外部缓存（体积过大，不入库）
+external_datasets/
+hf_cache/
+fire_detection/data/
+fire_detection/data_ext_v1/
+fire_detection/crop_data_v2/
+fire_detection/siglip_data/
+fire_detection/dinov3_data/
+
+# 工具运行时缓存
+.ultralytics/
+.matplotlib/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# 系统文件
+Thumbs.db
+Desktop.ini
+.DS_Store

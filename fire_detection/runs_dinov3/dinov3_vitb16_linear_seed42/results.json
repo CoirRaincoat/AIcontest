@@ -1,0 +1,40 @@
+{
+  "method": "frozen DINOv3 image embeddings + weighted linear classifier",
+  "model": "hf-hub:timm/vit_base_patch16_dinov3.lvd1689m",
+  "train_manifest": "C:\\AI\\fire_detection\\siglip_data\\train.csv",
+  "val_manifest": "C:\\AI\\fire_detection\\siglip_data\\val.csv",
+  "train_counts": {
+    "no_fire": 181,
+    "fire": 699
+  },
+  "class_weights": {
+    "no_fire": 2.430939226519337,
+    "fire": 0.6294706723891274
+  },
+  "best_checkpoint_epoch": 26,
+  "best_checkpoint_val_loss": 0.41842737793922424,
+  "final_val_loss": 0.41842737793922424,
+  "metrics_at_threshold_0_5": {
+    "threshold": 0.5,
+    "precision": 0.9090909090909091,
+    "recall": 0.9090909090909091,
+    "f1": 0.9090909090909091,
+    "tp": 150,
+    "fp": 15,
+    "fn": 15,
+    "tn": 40
+  },
+  "best_validation_metrics": {
+    "threshold": 0.245,
+    "precision": 0.8702702702702703,
+    "recall": 0.9757575757575757,
+    "f1": 0.92,
+    "tp": 161,
+    "fp": 24,
+    "fn": 4,
+    "tn": 31
+  },
+  "checkpoint": "C:\\AI\\fire_detection\\runs_dinov3\\dinov3_vitb16_linear_seed42\\best_head.pt",
+  "history": "C:\\AI\\fire_detection\\runs_dinov3\\dinov3_vitb16_linear_seed42\\training_history.csv",
+  "val_scores": "C:\\AI\\fire_detection\\runs_dinov3\\dinov3_vitb16_linear_seed42\\val_scores.csv"
+}

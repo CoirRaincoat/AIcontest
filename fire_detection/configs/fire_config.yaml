@@ -1,0 +1,64 @@
+# YOLOv8 Training Configuration for Fire Detection
+# Paths
+path: ../data                                          # dataset root dir (relative to this config)
+train: train/images                                    # train images (relative to path)
+val: val/images                                        # val images (relative to path)
+
+# Classes
+nc: 1                                                  # number of classes
+names:
+  0: fire
+
+# Model
+model: yolov8n.pt                                      # pretrained model (nano as baseline)
+
+# Training hyperparameters
+epochs: 100                                            # total training epochs
+batch: 16                                              # batch size (adjust based on GPU memory)
+imgsz: 640                                             # input image size
+patience: 20                                           # early stopping patience
+workers: 4                                             # dataloader workers
+device: 0                                              # GPU device (0 for first GPU, 'cpu' for CPU)
+
+# Optimization
+optimizer: AdamW                                       # optimizer: AdamW, SGD, Adam
+lr0: 0.001                                             # initial learning rate
+lrf: 0.01                                              # final learning rate factor (lr0 * lrf)
+momentum: 0.937                                        # SGD momentum / AdamW beta1
+weight_decay: 0.0005                                   # weight decay
+warmup_epochs: 3                                       # warmup epochs
+warmup_momentum: 0.8                                   # warmup initial momentum
+warmup_bias_lr: 0.1                                    # warmup initial bias lr
+
+# Loss
+box: 7.5                                               # box loss gain
+cls: 0.5                                               # cls loss gain
+dfl: 1.5                                               # dfl loss gain
+
+# Data Augmentation (for fire detection challenges)
+hsv_h: 0.015                                           # HSV-Hue augmentation
+hsv_s: 0.7                                             # HSV-Saturation augmentation
+hsv_v: 0.4                                             # HSV-Value (brightness) augmentation
+degrees: 0.0                                           # rotation (+/- deg) - disabled for surveillance
+translate: 0.1                                         # translation (+/- fraction)
+scale: 0.5                                             # scale gain (+/- 50%)
+shear: 0.0                                             # shear - disabled
+perspective: 0.0                                       # perspective - disabled
+flipud: 0.0                                            # vertical flip probability - disabled for surveillance
+fliplr: 0.5                                            # horizontal flip probability
+mosaic: 1.0                                            # mosaic augmentation probability
+mixup: 0.1                                             # mixup augmentation probability
+copy_paste: 0.0                                        # copy-paste augmentation
+close_mosaic: 10                                       # disable mosaic augmentation for last N epochs
+
+# Multi-scale training
+multi_scale: true                                      # enable multi-scale training
+
+# Logging & Saving
+project: ../runs/train                                 # project save directory
+name: fire_detection                                   # experiment name
+exist_ok: false                                        # overwrite existing experiment
+save: true                                             # save checkpoints
+save_period: 10                                        # save checkpoint every N epochs
+val: true                                              # validate during training
+val_period: 1                                          # validate every N epochs
