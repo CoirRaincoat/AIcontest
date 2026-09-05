@@ -1,0 +1,67 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "9-10 complete — FINAL",
+  "frozen_rules_source": "用户任务书原文(经会话记录校回): 成熟度0–5×权重, 硬门槛6条, 上限5条; 未做任何事后修改",
+  "final_state": "NOT READY",
+  "hard_gates_triggered": [
+    {"clause": "已证实存在验证/测试泄漏或标签污染且未隔离", "evidence": "E025/E029 F-11 (22张d=0; 重训未获批)"},
+    {"clause": "正式推理路径不可运行(+无法为测试图像生成合法且完整的0/1JSON)", "evidence": "F-01/E004/E009 + N6/E034", "note": "第②条在本机条件下成立; 能力机制已静态与合同级验证[E032]"}
+  ],
+  "hard_gates_not_triggered": [
+    "模型/权重/配置/阈值无法确定 → 全部A级确定(E030/E031/E014)",
+    "结果无法从冻结基线复现 → 三重独立复算吻合(E019≡E032≡E033)",
+    "指标口径非图像级P/R或严重漏算筛样 → 口径正确; F-12实现缺陷存在但现存产物全覆盖未受影响(E026/E033)"
+  ],
+  "scoring_dimensions_frozen_weights": {
+    "官方要求与提交合规": {"w": 15, "level": 2, "score": 6},
+    "评测完整性与证据可信度": {"w": 15, "level": 4, "score": 12},
+    "可信P/R性能与阈值策略": {"w": 25, "level": 2, "score": 10},
+    "鲁棒性、泛化与数据质量": {"w": 15, "level": 2, "score": 6},
+    "部署、效率与运行稳定性": {"w": 10, "level": 1, "score": 2, "cap_note": "仅文档声明→L≤1条款"},
+    "可复现性、代码与测试": {"w": 10, "level": 2, "score": 4},
+    "完整系统、可视化、文档与答辩准备": {"w": 10, "level": 1, "score": 2, "cap_note": "系统/可视化/云端无运行证据→L≤1"}
+  },
+  "raw_total": 42,
+  "caps_chain_applied": [
+    {"rule": "存在未解决的明确数据泄漏: ≤39", "binding": true},
+    {"rule": "无可运行端到端推理: ≤49", "binding": false},
+    {"rule": "无独立、可信验证数据: ≤69 且性能标'未充分验证'", "binding": false, "label_applied": true},
+    {"rule": "提交JSON不合规或不完整: ≤59(本地不存在件; 按最严读法适用亦不改变绑定值)", "binding": false},
+    {"rule": "只有文档声明维度 L≤1", "binding": true, "applied_to": ["部署效率", "完整系统文档答辩"]}
+  ],
+  "final_score_capped": 39,
+  "ten_requested_sub_conclusions": [
+    {"item": 1, "name": "历史验证产物可复算性", "verdict": "强(A): 三重独立对账全吻合", "evidence": ["E019", "E020", "E032", "E033"]},
+    {"item": 2, "name": "指标计算正确性", "verdict": "口径正确; 实现缺陷F-12证实但未波及现存产物", "evidence": ["E016", "E026", "E033"]},
+    {"item": 3, "name": "陌生场景泛化可信度", "verdict": "低—不足以支持任何无偏声明", "evidence": ["E025", "E024", "E028"]},
+    {"item": 4, "name": "生产环境可复现性", "verdict": "不具备(F-01); 历史真实性不受损", "evidence": ["E004", "E009"]},
+    {"item": 5, "name": "端到端提交就绪度", "verdict": "否: 无环境+无测试集+无可提交件", "evidence": ["N6", "E034"]},
+    {"item": 6, "name": "输出格式与覆盖机制", "verdict": "好(R3/R10); 缺输出前自检由校验器代偿", "evidence": ["E014", "E032"]},
+    {"item": 7, "name": "鲁棒性和失败处理", "verdict": "弱: 整批中止缺陷开放; 今日0坏图属运气性安全", "evidence": ["E014", "E027", "E032-T20"]},
+    {"item": 8, "name": "推理效率与部署状态", "verdict": "U: 一切量化未实测(阶段8决议), 声明不可作数", "evidence": ["阶段8决议", "E030训练侧唯一硬数据"]},
+    {"item": 9, "name": "文档、证据链和答辩可信度", "verdict": "中上: 文档数字100%对得上(诚实信号); 脱敏遗留", "evidence": ["E001", "E002", "N5", "F-02"]},
+    {"item": 10, "name": "综合内部就绪度", "verdict": "39/100 NOT READY (裸分42被封顶)", "evidence": ["本文件caps链"]}
+  ],
+  "mandatory_distinction_statements_all_included_in_report": [
+    "现有内部验证结果可精确复算",
+    "现有结果受数据泄漏、同集选阈值及事后规则影响",
+    "不能据此证明对全新场景的无偏泛化能力",
+    "校验器通过不代表端到端提交就绪",
+    "F-12未影响现存全覆盖产物，但生产评测机制存在真实缺陷",
+    "阶段6、阶段8因未授权而未验证——记U, 不判通过也不判失败"
+  ],
+  "p0_blockers": ["G4/F-14 per-image隔离(P0-1)", "G3/F-12全集口径评测器(P0-2)", "(结构性)G5环境重建+G6产码SOP构成'能交出合法件'的前置"],
+  "top3_remediation_priority": [
+    "① G4+G3 生产双修复 (<1h CPU, 需生产代码写权限)",
+    "② G1 内容簇重划重训 (GPU≈4.7–6h实测基线+特征/评估至6h, 磁盘2–3GB ⚠现余8.1GB需先腾挪) — 解除39封顶的唯一路径",
+    "③ G6提交SOP彩排 + G2独立集冻阈并轨"
+  ],
+  "requires_user_approval_next": [
+    "生产代码修改(G3/G4)",
+    "pip安装或提供环境(G5=P6选项A/B)",
+    "GPU训练(G1) — 另注磁盘先决条件",
+    "GPU小批推理(G7可与旧P6票合并; P6是否永久搁置待表态)"
+  ],
+  "deliverables_phase9_10": ["DEFENSE_QA.md", "FINAL_AUDIT_REPORT.md", "EXECUTIVE_SUMMARY.md", "REMEDIATION_ROADMAP.md", "machine/final_audit_summary.json"],
+  "no_official_prediction_made": "全报告不含官方排名预计或伪造综合分; 内部门槛不得表述为主办方规则"
+}

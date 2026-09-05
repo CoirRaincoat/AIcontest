@@ -1,0 +1,36 @@
+{
+  "main_rule": {
+    "name": "production_fusion_rule_FROZEN",
+    "siglip_tau": 0.22,
+    "dino_tau": 0.08,
+    "crop_tau": 0.97,
+    "votes_min": 1,
+    "structure": "votes>=1 & s>=tau_s & d>=tau_d, OR crop>=tau_c",
+    "provenance": "E014/E002 + P6_APPROVAL_REQUEST.md; unchanged by this pipeline"
+  },
+  "secondary_rules_pre_registered": [
+    {
+      "name": "F15_app_fullimage_rule_EXPLORATORY",
+      "full_image": {
+        "siglip": 0.85,
+        "dino": 0.7
+      },
+      "status": "pre-registered exploratory only; never presented as pre-registered main"
+    }
+  ],
+  "assets_sha256": {
+    "yolo_m": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef",
+    "yolo_s": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f",
+    "yolo_s_aug": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe",
+    "siglip_head": "c7ae93114e7a693f459cb6f239e700dee29c9f39d9009e6b592710ada53220e5",
+    "dino_head": "8b8005f8f43f1d82f1a68f92e770047cb3948914bbeb9b7cf7ea5d84c93f8975",
+    "crop_head": "b57ee5f86115a31fcfda23a2fb14bb8c606bf367399e3a9cbb1ecd36f170647a"
+  },
+  "calib_panel": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g2\\RULE_PANEL_CALIB.json",
+  "holdout_status": "SEALED",
+  "bootstrap": {
+    "B": 10000,
+    "seed": 20260828,
+    "method": "percentile iid, as E024 precedent"
+  }
+}

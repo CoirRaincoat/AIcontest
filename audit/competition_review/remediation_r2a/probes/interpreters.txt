@@ -1,0 +1,18 @@
+== py -0p ==
+  *               C:\Users\CoirRaincoat\PyCharmMiscProject\.venv\Scripts\python.exe
+ -V:3.13          C:\Users\CoirRaincoat\AppData\Local\Programs\Python\Python313\python.exe
+
+== where python/py/conda/mamba ==
+C:\Users\CoirRaincoat\PyCharmMiscProject\.venv\Scripts\python.exe
+C:\Users\CoirRaincoat\AppData\Local\Programs\Python\Python313\python.exe
+C:\Users\CoirRaincoat\AppData\Local\Microsoft\WindowsApps\python.exe
+C:\Users\CoirRaincoat\AppData\Local\Programs\Python\Launcher\py.exe
+信息: 用提供的模式无法找到文件。
+信息: 用提供的模式无法找到文件。
+
+== conda/mamba versions ==
+/usr/bin/bash: line 1: conda: command not found
+/usr/bin/bash: line 1: mamba: command not found
+
+== conda env list ==
+/usr/bin/bash: line 1: conda: command not found

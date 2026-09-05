@@ -22,3 +22,29 @@ venv/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# 备份归档（体积过大，不入库）
+fire_detection.zip
+audit/competition_review.zip
+
+# 数据集派生物与可复现中间文件（不入库；封存权重 SHA 见 MODEL_CANDIDATE_REGISTRY.json）
+audit/**/*.jpg
+audit/**/*.png
+audit/**/*.npz
+audit/**/*.log
+audit/**/*.ttf
+audit/**/*.cache
+
+# 项目级 Claude 本地配置
+.claude/
+
+# LaTeX 构建产物
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.synctex.gz
+*.fls
+*.fdb_latexmk

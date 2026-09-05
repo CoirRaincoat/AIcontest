@@ -1,0 +1,92 @@
+{
+  "registry_version": "1.0",
+  "frozen_at": "2026-08-28",
+  "rule": "immutable; no deletion/move/overwrite/rename of any registered weight; no re-training/tuning/threshold changes",
+  "fusion_rule_shared": {
+    "structure": "votes>=1 & siglip>=0.22 & dino>=0.08, OR crop>=0.97",
+    "thresholds": {"yolo_conf": {"m": 0.10, "s": 0.20, "s_aug": 0.20}, "siglip_tau": 0.22,
+                   "dino_tau": 0.08, "crop_tau": 0.97, "crop_proposal_conf": 0.03,
+                   "iou": 0.45, "min_area": 0.0, "imgsz": 960, "crop_max": 8, "crop_context": 0.15,
+                   "crop_min_size": 96, "votes_min": 1}
+  },
+  "env_fingerprint_shared": {
+    "python": "3.11.9", "torch": "2.8.0+cu128", "torchvision": "0.23.0+cu128",
+    "ultralytics": "8.4.87", "transformers": "5.16.1", "timm": "1.0.28",
+    "scikit_learn": "1.9.0", "scipy": "1.17.1", "numpy": "2.4.6", "pillow": "12.3.0",
+    "gpu": "RTX 5060 Laptop (sm_120, 8151 MiB)", "driver_cuda": "12.8",
+    "requirements_freeze": "audit/competition_review/remediation_r2b/frozen_requirements.txt"
+  },
+  "candidates": [
+    {
+      "candidate_id": "LEGACY_ORIGINAL_WITH_KNOWN_LEAKAGE",
+      "role": "legacy production model (historical weights from content-near-duplicate-leaked split)",
+      "is_default_model": true,
+      "f11_status": "CONFIRMED/UNRESOLVED",
+      "weights": {
+        "yolo_m": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26m_960\\weights\\best.pt",
+                   "sha256": "788478d07589d05795334ad23f47c59a7e4b006cca8cbc6ce1857e2607299d60"},
+        "yolo_s": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26s_960\\weights\\best.pt",
+                   "sha256": "2115c79cbcdbf7b1c946bd6b2456895f1a9a8c28e09f786eaa0d212aa0974e85"},
+        "yolo_s_aug": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26s_aug_960\\weights\\best.pt",
+                   "sha256": "7c6a37fd3cf54e31801d16029704580a9088fff982182a173ed900a3e41ac54b"},
+        "siglip_head": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs_siglip\\siglip2_linear_seed2026\\best_head.pt",
+                   "sha256": "08d77aafc6d3d4c26e928e64d5561ac57885de650477b0556d8d3e5c1d113b7b"},
+        "dino_head": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs_dinov3\\dinov3_vitb16_linear_seed42\\best_head.pt",
+                   "sha256": "a31b7a3ae0b8ec617973ff9118bb0921e09912b06c74e9b87acbc497e7bcef08"},
+        "crop_head": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs_siglip\\siglip2_crop_v2_seed2026\\best_head.pt",
+                   "sha256": "50beadfdeb9b0f40e16ca54b6a23e4da9c84bb14223b32cb94c46299d942acc1"}
+      },
+      "config": {
+        "data_split": "historical 880 train / 220 val (content-near-duplicate leaked)",
+        "args_yaml": ["fire_detection/runs/detect/runs/train/fire_yolo26m_960/args.yaml",
+                      "fire_detection/runs/detect/runs/train/fire_yolo26s_960/args.yaml",
+                      "fire_detection/runs/detect/runs/train/fire_yolo26s_aug_960/args.yaml"]
+      },
+      "metrics": {"precision": 0.9474, "recall": 0.9818, "f1_diagnostic": 0.9643,
+                  "applicable_data": "historical 220-image val (leak-contaminated)",
+                  "note": "recomputable (== E019) but NOT admissible as unbiased generalization evidence"},
+      "g6": {"result": "audit/competition_review/remediation_g6_original/G6_ORIGINAL_RESULT.json",
+             "validator_rc": 0, "submission_sha256": "eb01c4c3f5cc52c2"},
+      "limitations": ["weights trained on content-near-duplicate-leaked split (F-11 unresolved)",
+                      "P/R overstates generalization; must not be cited as unbiased"]
+    },
+    {
+      "candidate_id": "REG1_GROUPED_RC",
+      "role": "release candidate (content-cluster isolated retrain), NOT promoted over production",
+      "is_default_model": false,
+      "f11_status": "CLOSED_FOR_REG1",
+      "weights": {
+        "yolo_m": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26m_960\\weights\\best.pt",
+                   "sha256": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef"},
+        "yolo_s": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_960\\weights\\best.pt",
+                   "sha256": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f"},
+        "yolo_s_aug": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_aug_960\\weights\\best.pt",
+                   "sha256": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe"},
+        "siglip_head": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_linear_reg1_seed2026\\best_head.pt",
+                   "sha256": "c7ae93114e7a693f459cb6f239e700dee29c9f39d9009e6b592710ada53220e5"},
+        "dino_head": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\dinov3_vitb16_linear_reg1_seed42\\best_head.pt",
+                   "sha256": "8b8005f8f43f1d82f1a68f92e770047cb3948914bbeb9b7cf7ea5d84c93f8975"},
+        "crop_head": {"path": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_crop_reg1_seed2026\\best_head.pt",
+                   "sha256": "b57ee5f86115a31fcfda23a2fb14bb8c606bf367399e3a9cbb1ecd36f170647a"}
+      },
+      "config": {
+        "data_split": "content-cluster isolated: train 698 / calib 198 / holdout 146 + quarantine 58 (cross d<=8 = 0)",
+        "split_freeze": "audit/competition_review/remediation_g1/split/SPLIT_FREEZE.json",
+        "per_image_sha": "audit/competition_review/remediation_g1/split/per_image_sha256.json",
+        "data_yaml": "audit/competition_review/remediation_g1/dataset/data_reg1.yaml",
+        "train_config": ["audit/competition_review/remediation_g1/_train_args_m_formal.json",
+                         "audit/competition_review/remediation_g1/_train_args_s_formal.json",
+                         "audit/competition_review/remediation_g1/_train_args_s_aug_formal.json"]
+      },
+      "metrics": {"precision": 0.8462, "recall": 0.9340, "f1_diagnostic": 0.8879,
+                  "tp": 99, "fp": 18, "fn": 7, "tn": 22,
+                  "applicable_data": "grouped final holdout (146 images, leak-free, one-shot)",
+                  "bootstrap_95CI": {"precision": [0.7949, 0.8974], "recall": [0.90, 0.9706]},
+                  "note": "content-cluster-isolated; same-source, NOT true external validation"},
+      "g6": {"result": "audit/competition_review/remediation_g6_grouped/G6_GROUPED_RESULT.json",
+             "validator_rc": 0, "submission_sha256": "a39fee81a90199aa"},
+      "limitations": ["same-source data (not external); performance still under-validated externally",
+                      "not promoted over LEGACY; promotion requires external paired test or official test set"]
+    }
+  ]
+}

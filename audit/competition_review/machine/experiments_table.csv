@@ -1,0 +1,6 @@
+run,model,data,seed,epochs,batch,imgsz,best_epoch_by_mAP50-95,best_mAP50-95,train_hours_total(csv_time_col),best_pt_sha256_16
+fire_yolo26m_960,yolo26m.pt,data/data.yaml,0,80,4,960,80,0.3479,2.22,788478d07589d057
+fire_yolo26s_960,yolo26s.pt,data/data.yaml,0,80,8,960,54,0.3482,1.15,2115c79cbcdbf7b1
+fire_yolo26s_aug_960,yolo26s.pt,data/data.yaml,0,80,8,960,74,0.3645,1.29,7c6a37fd3cf54e31
+fire_yolov8n_960(legacy),runs\detect\runs\train\fire_yolov8n_960\weights\last.pt,C:\Users\薇尔莉特\Desktop\fire_detection\data\data.yaml,42,50,16,960,42,0.3314,1.23,84c93e08159e44e2
+fire_yolo26s_ext_v1_960(ext),yolo26s.pt,C:\AI\fire_detection\data_ext_v1\data.yaml,42,80,8,960,78,0.3786,3.08,905c407f12410457

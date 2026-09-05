@@ -1,0 +1,19 @@
+{
+ "check": "preflight-images",
+ "corrupt": [
+  {
+   "exception_class": "OSError",
+   "file": "truncated.jpg",
+   "message": "Truncated File Read"
+  },
+  {
+   "error": "zero-byte file",
+   "file": "zero.jpg"
+  }
+ ],
+ "corrupt_count": 2,
+ "directory": "audit/competition_review/machine/phase7/fixtures/bad_img_dir",
+ "files_seen": 4,
+ "images_checked": 3,
+ "tool": "p7-validator-1.0"
+}

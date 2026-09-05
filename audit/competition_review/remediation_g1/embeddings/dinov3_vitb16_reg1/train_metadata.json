@@ -1,0 +1,7 @@
+{
+  "model": "hf-hub:timm/vit_base_patch16_dinov3.lvd1689m",
+  "split": "train",
+  "rows": 698,
+  "feature_dimension": 768,
+  "normalized": true
+}

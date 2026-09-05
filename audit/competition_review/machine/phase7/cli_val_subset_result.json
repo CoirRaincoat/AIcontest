@@ -1,0 +1,42 @@
+{
+ "coverage": {
+  "extra": 0,
+  "missing": 0,
+  "parsed_keys": 220,
+  "universe": 220
+ },
+ "errors": [],
+ "gt_input": {
+  "sha256": "133f0241ff2699cb81911e6fbd76159ecda2901d5508241ed7d3b205bf0ed033"
+ },
+ "metrics": {
+  "missing_names_sorted": [],
+  "missing_predictions_total": 0,
+  "missing_true_negative": 0,
+  "missing_true_positive": 0,
+  "present_fn": 3,
+  "present_fp": 9,
+  "present_tp": 162,
+  "production_intersection_diagnostic_DO_NOT_REPORT": {
+   "n_common": 220,
+   "precision_production_semantics": 0.9473684210526315,
+   "recall_production_semantics": 0.9818181818181818
+  },
+  "recall_inflation_trap_delta_PRODUCTION_minus_STRICT": 0.0,
+  "strict_full_coverage_metrics": {
+   "f1_diagnostic": 0.964286,
+   "precision": 0.947368,
+   "recall": 0.981818,
+   "undefined_flags": []
+  },
+  "tn": 46
+ },
+ "pred_input": {
+  "relative_path": "fire_detection/outputs/val_pred_best_siglip_yolo_dino_crop_live.json",
+  "sha256": "85de4b79fcf081b765c933015a6cd68f200e96b0f6ea910ac4248a4efaf1ea64",
+  "size_bytes": 8005
+ },
+ "tool": "p7-validator-1.0",
+ "verdict": "PASS",
+ "warnings": []
+}

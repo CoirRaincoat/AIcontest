@@ -1,0 +1,95 @@
+{
+  "sanity_csv_reconstruction": {
+    "csv_recon_equals_S4_json": true
+  },
+  "fixed_threshold_results": {
+    "S3_097=S4_live @documented(0.22,0.08,0.97)": {
+      "counts": {
+        "tp": 162,
+        "fp": 9,
+        "fn": 3,
+        "tn": 46,
+        "P": 0.9474,
+        "R": 0.9818,
+        "F1": 0.9643
+      },
+      "labels": "leak-caveat",
+      "leak_caveat": "VAL_INCLUDES_NEIGHBOR_FRAMES_OF_TRAIN -> optimistic (F-11)"
+    },
+    "app_rule(+) @documented(+0.85,0.70)": {
+      "counts": {
+        "tp": 164,
+        "fp": 9,
+        "fn": 1,
+        "tn": 46,
+        "P": 0.948,
+        "R": 0.9939,
+        "F1": 0.9704
+      },
+      "leak_caveat": "VAL_INCLUDES_NEIGHBOR_FRAMES_OF_TRAIN -> optimistic (F-11)"
+    },
+    "base_only(0.22,0.08,nocrop)": {
+      "counts": {
+        "tp": 161,
+        "fp": 9,
+        "fn": 4,
+        "tn": 46,
+        "P": 0.9471,
+        "R": 0.9758,
+        "F1": 0.9612
+      },
+      "leak_caveat": "VAL_INCLUDES_NEIGHBOR_FRAMES_OF_TRAIN -> optimistic (F-11)"
+    }
+  },
+  "image_iid_bootstrap": {
+    "method": "percentile bootstrap, image-level iid resample",
+    "B": 10000,
+    "rng_seed": 20260827,
+    "excluded_degenerate": 0,
+    "rule": "documented app rule (@0.22/0.08/0.97 + 0.85/0.70)",
+    "P_ci95": [
+      0.9245,
+      0.973
+    ],
+    "R_ci95": [
+      0.9896,
+      1.0
+    ]
+  },
+  "family_cluster_bootstrap": {
+    "method": "cluster bootstrap over 5 heuristic sequence families (resample families w/ replacement)",
+    "families": {
+      "0ceaac62c19eb77b75d3d34475d3615e": {
+        "n": 3,
+        "pos": 0
+      },
+      "20250526_firesmoke": {
+        "n": 13,
+        "pos": 6
+      },
+      "20260116_fs_sjt": {
+        "n": 101,
+        "pos": 72
+      },
+      "20260320_sjt_fs": {
+        "n": 40,
+        "pos": 39
+      },
+      "raw_fire_relabel_dp": {
+        "n": 63,
+        "pos": 48
+      }
+    },
+    "B": 10000,
+    "excluded_degenerate": 1,
+    "caveat": "仅5簇=>分布不稳定,区间仅供参考; 族分配为命名启发式,已抽样目检确认近邻同源",
+    "P_ci95": [
+      0.8852,
+      1.0
+    ],
+    "R_ci95": [
+      0.9872,
+      1.0
+    ]
+  }
+}

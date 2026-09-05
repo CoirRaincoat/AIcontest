@@ -1,0 +1,40 @@
+{
+  "method": "frozen SigLIP2 image embeddings + weighted linear classifier",
+  "model": "google/siglip2-base-patch16-384",
+  "train_manifest": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\manifests\\train.csv",
+  "val_manifest": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\manifests\\calib.csv",
+  "train_counts": {
+    "no_fire": 164,
+    "fire": 534
+  },
+  "class_weights": {
+    "no_fire": 2.1280487804878048,
+    "fire": 0.653558052434457
+  },
+  "best_checkpoint_epoch": 13,
+  "best_checkpoint_val_loss": 0.5034036636352539,
+  "final_val_loss": 0.5034036636352539,
+  "metrics_at_threshold_0_5": {
+    "threshold": 0.5,
+    "precision": 0.9696969696969697,
+    "recall": 0.7032967032967034,
+    "f1": 0.8152866242038217,
+    "tp": 128,
+    "fp": 4,
+    "fn": 54,
+    "tn": 12
+  },
+  "best_validation_metrics": {
+    "threshold": 0.159,
+    "precision": 0.9627659574468085,
+    "recall": 0.9945054945054945,
+    "f1": 0.9783783783783784,
+    "tp": 181,
+    "fp": 7,
+    "fn": 1,
+    "tn": 9
+  },
+  "checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_linear_reg1_seed2026\\best_head.pt",
+  "history": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_linear_reg1_seed2026\\training_history.csv",
+  "val_scores": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_linear_reg1_seed2026\\val_scores.csv"
+}

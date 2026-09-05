@@ -1,0 +1,31 @@
+{
+  "scenario": "drop5(all truth=1) from prediction file",
+  "intersection_caliber(as evaluate_image_level.py)": {
+    "n": 215,
+    "missing": 5,
+    "tp": 159,
+    "fp": 9,
+    "fn": 1,
+    "tn": 46,
+    "P": 0.9464,
+    "R": 0.9938
+  },
+  "strict_full_coverage(FN counted)": {
+    "n": 220,
+    "missing": 5,
+    "tp": 159,
+    "fp": 9,
+    "fn": 6,
+    "tn": 46,
+    "P": 0.9464,
+    "R": 0.9636
+  },
+  "dropped_truth": [
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "conclusion": "交集口径把5个漏报真阳隐去: R虚高(.9938->实际严格口径.9636), P由分母缩小略降; 若丢的是负类则P/R同步虚高。机制成立(A级); 现存产物均为全覆盖故历史数字未受影响"
+}

@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "proposal_conf": 0.03,
+    "imgsz": 960,
+    "iou": 0.45,
+    "positive_iou": 0.3,
+    "negative_iou": 0.05,
+    "context": 0.15,
+    "min_crop_size": 96,
+    "negative_tiles_per_image": 4,
+    "max_proposals_per_image": 8
+  },
+  "source_images": {
+    "train": 698,
+    "val": 198
+  },
+  "crop_rows": {
+    "train": 3713,
+    "val": 729
+  },
+  "counts": {
+    "train_ambiguous_skipped": 979,
+    "train_gt_positive": 1025,
+    "train_negative_tile": 656,
+    "train_yolo_label_0": 257,
+    "train_yolo_label_1": 1775,
+    "val_ambiguous_skipped": 398,
+    "val_gt_positive": 204,
+    "val_negative_tile": 64,
+    "val_yolo_label_0": 52,
+    "val_yolo_label_1": 409
+  },
+  "manifests": {
+    "train": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\crop_data_reg1\\train.csv",
+    "val": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\crop_data_reg1\\val.csv"
+  }
+}

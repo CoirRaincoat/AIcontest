@@ -1,0 +1,38 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "post-remediation (unattended pipeline, executed 2026-08-28)",
+  "stop_point": "G1 formal training",
+  "stop_reason": "PROJECTED_OVER_BUDGET: 3-model reg1 retrain ~9.7h (m 3.83h + s 2.77h + s_aug 3.09h) on RTX 5060 Laptop > 8h budget; stop-before-formal per frozen rule",
+  "hard_failure": false,
+  "completed": {
+    "R2B_env": "COMPLETE — py3.11.9 + torch 2.8.0+cu128 + torchvision 0.23.0+cu128 + ultralytics 8.4.87 + transformers 5.16.1 + timm 1.0.28; gate 17/17 PASS; frozen_requirements.txt + wheel sha256 archived",
+    "R3_e2e_p6_g7": "COMPLETE — weight SHA match; 5 weight types load offline; single-image rc0; G4 corrupt-injection CLOSED (rc3+PARTIAL+validator-reject); G3 220-image full eval == E019 byte-identical (TP162 FP9 FN3 TN46 P.9474 R.9818 F1.9643); P6 12/12 pred bits; G7 cold 59.08s/warm 28.22s/peak VRAM 1777MiB/max temp 59C; preflight 0 corrupt",
+    "G1_prep_freeze": "COMPLETE — 773 clusters reproduced; holdout146/calib198/train698+quarantine58; cross d<=8 = 0; SPLIT_FREEZE.json + per_image_sha256.json + data_reg1.yaml frozen"
+  },
+  "blocked": {
+    "G1_training": "BLOCKED — dry-run m/s complete (172.3s/134.8s per-epoch, batch8 no OOM); projection 9.7h > 8h; formal not started",
+    "G2_evaluation": "BLOCKED — depends on G1 reg1 model",
+    "G6_rehearsal": "BLOCKED — depends on G1 reg1 assets (alternative: original-model rehearsal possible if authorized)"
+  },
+  "status_upgrades": {
+    "F-01_env_reproducibility": "RESOLVED (env built + frozen)",
+    "F-12_G3_evaluator": "CLOSED (end-to-end, E019 byte-identical)",
+    "F-14_G4_fault_isolation": "CLOSED (end-to-end, rc3+PARTIAL+validator-reject)",
+    "P6": "12/12 pred bits reproduced (11/12 scores +-1e-3, 1 dino drift 2e-3 FP16)",
+    "G7": "latency + VRAM recorded"
+  },
+  "status_unchanged": {
+    "F-11_data_leakage": "UNRESOLVED — split frozen but retrain blocked by 8h budget; weights still trained on full 1100",
+    "G1_retrain": "not run",
+    "G2_holdout_eval": "not run",
+    "G6_submission_rehearsal": "not run"
+  },
+  "verdict": "NOT READY · 39/100 (unchanged: binding 'data leakage <=39' cap holds; non-binding 'no e2e <=49' cap now LIFTED; 'no independent val <=69' still holds)",
+  "submission_gates": "NOT lifted (no official test-set JSON)",
+  "no_ranking_or_official_composite": true,
+  "recovery": {
+    "read": "machine/unattended_pipeline_status.json + remediation_g1/G1_TRAINING_BLOCKED.md",
+    "resume_commands": ["python train_reg1.py --model m --mode formal", "python train_reg1.py --model s --mode formal", "python train_reg1.py --model s_aug --mode formal"],
+    "human_decision": ["relax 8h budget OR retrain on 5070 Ti machine", "allow G1-independent G6 rehearsal with original production model?"]
+  }
+}

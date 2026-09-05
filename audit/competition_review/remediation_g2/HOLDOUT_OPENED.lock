@@ -1,0 +1,12 @@
+{
+  "opened": true,
+  "main_rule": {
+    "name": "production_fusion_rule_FROZEN",
+    "siglip_tau": 0.22,
+    "dino_tau": 0.08,
+    "crop_tau": 0.97,
+    "votes_min": 1,
+    "structure": "votes>=1 & s>=tau_s & d>=tau_d, OR crop>=tau_c",
+    "provenance": "E014/E002 + P6_APPROVAL_REQUEST.md; unchanged by this pipeline"
+  }
+}

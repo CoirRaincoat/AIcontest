@@ -1,0 +1,254 @@
+{
+  "frozen": true,
+  "frozen_before_training": true,
+  "seed_tag": 20260828,
+  "phase_A_verification": {
+    "pairs_le8": 1468,
+    "n_clusters": 773,
+    "top10_sizes": [
+      45,
+      26,
+      19,
+      19,
+      19,
+      18,
+      16,
+      12,
+      12,
+      12
+    ],
+    "singletons": 683,
+    "regroup": [
+      922,
+      178
+    ],
+    "moved": 84,
+    "boundary_min_pairs_le12": 32,
+    "cross_pairs_le8_after_regroup": 0,
+    "vs_f11_frozen_json": "all matched"
+  },
+  "construction_rules": [
+    "quarantine = all endpoints of the 32 boundary min-pairs (d in (8,12]); excluded from every set",
+    "holdout = proposed-val side minus quarantine",
+    "calib = whole d<=8 clusters from train side minus quarantine, greedy (-size, min-name) to >=90 imgs",
+    "train = remaining train side; three sets mutually exclusive by content cluster",
+    "no DFire; no image copies (junction views); labels copied read-only"
+  ],
+  "gates_pre_registered": {
+    "holdout_min_n": 100,
+    "holdout_min_pos": 50,
+    "holdout_min_neg": 20,
+    "calib_min_pos": 30,
+    "calib_min_neg": 15,
+    "train_min_pos": 50,
+    "train_min_neg": 50,
+    "calib_target_n": 90
+  },
+  "gate_results": {
+    "holdout": {
+      "n": 146,
+      "pos": 106,
+      "neg": 40
+    },
+    "calib": {
+      "n": 198,
+      "pos": 182,
+      "neg": 16
+    },
+    "train": {
+      "n": 698,
+      "pos": 534,
+      "neg": 164
+    },
+    "cross_le8_edges": {
+      "holdout-calib": 0,
+      "holdout-train": 0,
+      "calib-train": 0
+    },
+    "quarantine_n": 58,
+    "holdout_family_distribution": [
+      "20250526_firesmoke",
+      "20260116_fs",
+      "raw_fire"
+    ],
+    "calib_family_distribution": [
+      "20250526_firesmoke",
+      "20260116_fs",
+      "20260320_sjt",
+      "raw_fire"
+    ],
+    "train_family_distribution": [
+      "0ceaac62c19eb77b75d3d34475d3615e_07690.jpg",
+      "0ceaac62c19eb77b75d3d34475d3615e_07695.jpg",
+      "0ceaac62c19eb77b75d3d34475d3615e_07700.jpg",
+      "0ceaac62c19eb77b75d3d34475d3615e_07705.jpg",
+      "20250526_firesmoke",
+      "20260116_fs",
+      "20260320_sjt",
+      "raw_fire"
+    ]
+  },
+  "boundary_pairs": [
+    {
+      "val": "0ceaac62c19eb77b75d3d34475d3615e_07500.jpg",
+      "train": "0ceaac62c19eb77b75d3d34475d3615e_07785.jpg",
+      "d": 10
+    },
+    {
+      "val": "0ceaac62c19eb77b75d3d34475d3615e_07580.jpg",
+      "train": "0ceaac62c19eb77b75d3d34475d3615e_07770.jpg",
+      "d": 9
+    },
+    {
+      "val": "20250526_firesmoke_00062.jpg",
+      "train": "20260116_fs_sjt_00501.jpg",
+      "d": 11
+    },
+    {
+      "val": "20250526_firesmoke_00185.jpg",
+      "train": "20260116_fs_sjt_00569.jpg",
+      "d": 11
+    },
+    {
+      "val": "20260116_fs_sjt_00020.jpg",
+      "train": "20260116_fs_sjt_00577.jpg",
+      "d": 11
+    },
+    {
+      "val": "20260116_fs_sjt_00025.jpg",
+      "train": "20260116_fs_sjt_00525.jpg",
+      "d": 10
+    },
+    {
+      "val": "20260116_fs_sjt_00086.jpg",
+      "train": "20250526_firesmoke_01146.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00097.jpg",
+      "train": "20260116_fs_sjt_00054.jpg",
+      "d": 9
+    },
+    {
+      "val": "20260116_fs_sjt_00098.jpg",
+      "train": "20260116_fs_sjt_00714.jpg",
+      "d": 10
+    },
+    {
+      "val": "20260116_fs_sjt_00139.jpg",
+      "train": "20260116_fs_sjt_00920.jpg",
+      "d": 9
+    },
+    {
+      "val": "20260116_fs_sjt_00155.jpg",
+      "train": "20260116_fs_sjt_00380.jpg",
+      "d": 11
+    },
+    {
+      "val": "20260116_fs_sjt_00156.jpg",
+      "train": "20260116_fs_sjt_00187.jpg",
+      "d": 9
+    },
+    {
+      "val": "20260116_fs_sjt_00157.jpg",
+      "train": "20260116_fs_sjt_00803.jpg",
+      "d": 10
+    },
+    {
+      "val": "20260116_fs_sjt_00169.jpg",
+      "train": "20260116_fs_sjt_00920.jpg",
+      "d": 11
+    },
+    {
+      "val": "20260116_fs_sjt_00228.jpg",
+      "train": "20250526_firesmoke_01263.jpg",
+      "d": 9
+    },
+    {
+      "val": "20260116_fs_sjt_00241.jpg",
+      "train": "20250526_firesmoke_01146.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00440.jpg",
+      "train": "20260116_fs_sjt_00448.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00454.jpg",
+      "train": "20260116_fs_sjt_00004.jpg",
+      "d": 9
+    },
+    {
+      "val": "20260116_fs_sjt_00466.jpg",
+      "train": "20260320_sjt_fs_1973.jpg",
+      "d": 10
+    },
+    {
+      "val": "20260116_fs_sjt_00658.jpg",
+      "train": "20260116_fs_sjt_00187.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00729.jpg",
+      "train": "raw_fire_relabel_dp_20663.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00893.jpg",
+      "train": "20260116_fs_sjt_00031.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00947.jpg",
+      "train": "20260116_fs_sjt_00272.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_00957.jpg",
+      "train": "20260116_fs_sjt_00525.jpg",
+      "d": 10
+    },
+    {
+      "val": "20260116_fs_sjt_00963.jpg",
+      "train": "20260116_fs_sjt_00031.jpg",
+      "d": 12
+    },
+    {
+      "val": "20260116_fs_sjt_01009.jpg",
+      "train": "20260116_fs_sjt_00289.jpg",
+      "d": 9
+    },
+    {
+      "val": "20260116_fs_sjt_01038.jpg",
+      "train": "raw_fire_relabel_dp_20465.jpg",
+      "d": 12
+    },
+    {
+      "val": "raw_fire_relabel_dp_20334.jpg",
+      "train": "20260116_fs_sjt_00217.jpg",
+      "d": 9
+    },
+    {
+      "val": "raw_fire_relabel_dp_20467.jpg",
+      "train": "20260116_fs_sjt_00501.jpg",
+      "d": 10
+    },
+    {
+      "val": "raw_fire_relabel_dp_20645.jpg",
+      "train": "20260116_fs_sjt_00153.jpg",
+      "d": 11
+    },
+    {
+      "val": "raw_fire_relabel_dp_20675.jpg",
+      "train": "raw_fire_relabel_dp_20695.jpg",
+      "d": 12
+    },
+    {
+      "val": "raw_fire_relabel_dp_20694.jpg",
+      "train": "20260116_fs_sjt_00091.jpg",
+      "d": 12
+    }
+  ],
+  "label_read_discipline": "holdout labels first accessed in PHASE C as pass/fail gate only; PHASE B membership used no labels except train-side pos/neg counts to size the calibration set to the pre-registered floors (stratified sizing; holdout untouched)"
+}

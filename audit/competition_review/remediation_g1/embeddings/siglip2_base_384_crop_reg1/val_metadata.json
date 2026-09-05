@@ -1,0 +1,7 @@
+{
+  "model": "google/siglip2-base-patch16-384",
+  "split": "val",
+  "rows": 729,
+  "feature_dimension": 768,
+  "normalized": true
+}

@@ -1,0 +1,5 @@
+Images evaluated: 198
+TP=174 FP=3 FN=8 TN=13
+Precision=0.9831
+Recall=0.9560
+F1=0.9694

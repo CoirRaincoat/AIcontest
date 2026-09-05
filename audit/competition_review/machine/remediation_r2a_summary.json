@@ -1,0 +1,43 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "remediation-R2A complete (G5 read-only precheck & plan; NO environment created)",
+  "authorization_compliance": "零安装/零联网/零删除/零PATH或注册表修改/零CUDA初始化/零权重加载/零生产代码改动; 产物仅写 remediation_r2a/ 与 machine/",
+  "r1_state_frozen": {
+    "git_head": "874de91aafdd18b30e083ee8801e570936953799",
+    "foreign_changes": "none — footprint exactly M×2 + ?? batch_safety.py + ?? audit/",
+    "r1_shas_verified": ["6b77616552ae63b59b24c77619f78044fde355bab33c23e62ab225d23f741f37", "092bae453990fcf3e74aa4b3920ba71ea89d7fa50e612448dd779893090f2647", "5403634bf6206e79decb3e7ed6fea8ac34001333c455faaa3864a58122c5d2aa"]
+  },
+  "machine_findings": {
+    "gpu": "RTX 5060 Laptop, cc 12.0 (sm_120), driver 573.24 → CUDA ≤12.8 → requires torch cu128-family build",
+    "vram": "8151 MiB total / 4981 MiB free at probe time",
+    "interpreters": "venv 3.13.5 (torch 2.12.1+cpu, torchvision 0.27.1+cpu, missing ultralytics/transformers/timm) + system 3.13.5 (torch 2.12.0+cpu, bare); NO conda/mamba; NO local Python 3.11",
+    "cpu_torch_proof": "torch/version.py: cuda=None, +cpu tag, zero CUDA DLLs in torch/lib (file-level, no import)",
+    "usable_env_without_install": false,
+    "disks": {"C": "300.0GB total / 98.1GB free (唯一可行目标)", "D": "174.7GB / 11.7GB free → BLOCKED"},
+    "sizes": {"fire_detection": "2.4G", "external_datasets": "3.0G", "hf_cache": "1.8G (含推理全部骨干, 零权重下载)", "existing_venv": "3.4G", "pip_cache": "136.6MB"},
+    "historical_env_fingerprint_A": "Ultralytics 8.4.87 / Python-3.11.15 / torch-2.8.0+cu128 (training log banner; GPU in log = RTX 5070 Ti Laptop → another machine)",
+    "historical_env_status": "README 声明的 conda C:\\ANACONDA2\\envs\\siglip_learn 与 C:\\AI 项目根在本机均已不存在(F-01/F-02)"
+  },
+  "dependency_evidence_highlights": {
+    "proven_A": ["torch==2.8.0+cu128 (历史)", "Python 3.11.15 (历史)", "ultralytics==8.4.87 (历史)", "requirements.txt 下限集"],
+    "UNKNOWN_no_local_proof": ["transformers 精确版本(仓库清单未列! siglip_learn灭失)", "timm 精确版本(需含 dinov3.lvd1689m)", "torchvision↔torch2.8.0 配对(推定0.23.0)", "py3.11+cu128 wheel 现势可用性", "实际wheel字节数"],
+    "policy": "不凑数猜测; 安装批准时取稳定版并立即 pip freeze 固化为A级记录"
+  },
+  "recommended_plan_M1": {
+    "python": "3.11 (历史同线; 需下载解释器)",
+    "env_path": "C:\\fire_envs\\py311 + C:\\fire_envs\\sf2026_min (完全隔离, 不碰现有venv)",
+    "install": "torch==2.8.0+cu128 + torchvision(核实配对) via pytorch cu128 index; ultralytics==8.4.87; transformers+timm 稳定版; --no-cache-dir; 随后 pip freeze 归档",
+    "estimated_disk": "下载≈2.8–3.5GB(临时); 安装后≈7–9GB; 峰值≈10–11.5GB",
+    "rollback": "删除 C:\\fire_envs\\ 即整体回滚; 无 PATH/注册表/系统Python 触碰",
+    "launch_adaptation": "零生产代码改动: 全CLI显式参数 + HF_HOME指向仓库hf_cache + HF_HUB_OFFLINE=1"
+  },
+  "storage_gates": {"minimal_env": "PASS on C:", "P6": "PASS", "G7": "PASS", "G1_retrain": "PASS (稳态≈81–87G剩余)", "D_drive": "BLOCKED", "margin_rule": "任何操作后 C: 剩余≥20GB"},
+  "verification_sequence": "S1版本核验→S2 CUDA可用→S3模块导入→S4权重加载→S5单图正常→S6单图损坏(G4端到端复验)→S7全集口径(G3端到端复验)→S8 P6冻结12图→S9 G7计时→S10 p7_validator终检; 逐门停止, 首败即停",
+  "next_approval_needed": {
+    "network": "python.org/uv 下载 Python 3.11 + download.pytorch.org/whl/cu128 + pypi.org",
+    "install_commands": "见 ENV_OPTIONS.md §7 (a)–(e)",
+    "target_dir": "C:\\fire_envs\\py311 + C:\\fire_envs\\sf2026_min",
+    "max_disk_budget": "峰值 ≤ 12 GB 于 C:, 完成后 C: 剩余 ≥ 86 GB (安全线20GB)"
+  },
+  "deliverables": ["ENV_INVENTORY.md", "DEPENDENCY_EVIDENCE.json", "ENV_OPTIONS.md", "STORAGE_BUDGET.md", "VERIFICATION_SEQUENCE.md", "probes/×6", "本文件"]
+}

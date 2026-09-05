@@ -1,0 +1,37 @@
+{
+  "note": "R2-A 依赖版本证据表。证据等级: A=本地实测直证, B=本地互证推导(需安装时核实), U=本地无法证明=UNKNOWN。禁止臆造精确版本。",
+  "sources_consulted": [
+    "fire_detection/requirements.txt (仓库唯一依赖清单, git 874de91 初始提交即有)",
+    "fire_detection/outputs/logs/resume_yolov8n_960.out.log (二进制日志文本横幅)",
+    "fire_detection/README.md L187/L222-232 (历史环境声明)",
+    "fire_detection/scripts/predict_best_fusion_crop.ps1 (生产启动器/路径)",
+    "audit/competition_review/machine/checkpoints_introspection.json (ckpt 内嵌 model id)",
+    "hf_cache/hub 目录清单 (骨干模型实际在盘)",
+    "audit/competition_review/machine/weights_inventory.txt (32权重条目)",
+    "probes/pkg_scan_results.txt (双解释器 importlib.metadata)",
+    "git history: 仅初始提交 874de91, 无其他环境文件历史"
+  ],
+  "dependencies": [
+    {"package": "torch", "version_evidence": "历史A: 2.8.0+cu128 (训练日志横幅直证); requirements下限: >=2.0.0; 现有venv: 2.12.1+cpu(不适用GPU)", "recommended_pin": "2.8.0+cu128 (与历史构建同线, 原生支持 sm_120)", "purpose": "核心推理+训练", "evidence_path": "fire_detection/outputs/logs/resume_yolov8n_960.out.log; fire_detection/requirements.txt", "grade": "A(历史环境) / B(作为新环境推荐组合)", "needed_for": ["P6", "G7", "G1"]},
+    {"package": "torchvision", "version_evidence": "requirements: >=0.15.0; 与torch 2.8.0的官方配对版本本地无法证明", "recommended_pin": "0.23.0+cu128 (torch 2.8.0 官方配对, 需联网核实精确匹配)", "purpose": "核心推理+训练", "evidence_path": "fire_detection/requirements.txt", "grade": "U(精确版本UNKNOWN) / B(配对推导)", "needed_for": ["P6", "G7", "G1"]},
+    {"package": "ultralytics", "version_evidence": "历史A: 8.4.87 (同一日志横幅直证); requirements下限: >=8.0.0", "recommended_pin": "8.4.87 (历史直证版本)", "purpose": "YOLO26 三头推理/训练", "evidence_path": "fire_detection/outputs/logs/resume_yolov8n_960.out.log; fire_detection/requirements.txt", "grade": "A(历史) / B(复用推荐)", "needed_for": ["P6", "G7", "G1"]},
+    {"package": "transformers", "version_evidence": "requirements.txt 未列(!); siglip_learn 环境已灭失; 唯一硬证据=模型id google/siglip2-base-patch16-384 (siglip2家族需较新transformers)", "recommended_pin": "UNKNOWN 精确版本; 安装时取当前稳定版并于安装后 pip freeze 固化为A级记录; 兼容下限推导=siglip2支持引入版(需联网核实)", "purpose": "SigLIP2 全图/裁剪头骨干加载", "evidence_path": "checkpoints_introspection.json; hf_cache/hub", "grade": "U(UNKNOWN)", "needed_for": ["P6", "G7"]},
+    {"package": "timm", "version_evidence": "requirements.txt 未列(!); ckpt model='hf-hub:timm/vit_base_patch16_dinov3.lvd1689m' 要求较新timm(dinov3权重2025-08发布)", "recommended_pin": "UNKNOWN 精确版本; 同上安装后freeze; 需确认目标版本含 dinov3.lvd1689m 定义", "purpose": "DINOv3 骨干加载(timm.create_model)", "evidence_path": "checkpoints_introspection.json(dino头); fire_detection/src/predict_best_fusion.py L246-258", "grade": "U(UNKNOWN)", "needed_for": ["P6", "G7"]},
+    {"package": "safetensors", "version_evidence": "未在任何清单; transformers/timm 加载 safetensors 骨干所需(1.76GB文件在盘)", "recommended_pin": "跟随 transformers/timm 依赖解析; 无独立pin", "purpose": "骨干权重反序列化", "evidence_path": "hf_cache/hub/*/model.safetensors", "grade": "B(必要性) / U(版本)", "needed_for": ["P6", "G7"]},
+    {"package": "huggingface-hub", "version_evidence": "现有venv 1.17.0 (非目标环境); 新环境随transformers解析", "recommended_pin": "跟随解析", "purpose": "HF缓存读取(HF_HUB_OFFLINE=1复用hf_cache)", "evidence_path": "probes/pkg_scan_results.txt", "grade": "B", "needed_for": ["P6", "G7"]},
+    {"package": "numpy", "version_evidence": "requirements >=1.24.0; 历史UNKNOWN; 现有venv 2.4.5可运行pytorch-cpu侧", "recommended_pin": "跟随torch/ultralytics解析(注意2.x兼容)", "purpose": "核心", "evidence_path": "fire_detection/requirements.txt", "grade": "B", "needed_for": ["P6", "G7", "G1"]},
+    {"package": "opencv-python", "version_evidence": "requirements >=4.8.0; 现有venv 4.12.0.88; 历史精确版本UNKNOWN", "recommended_pin": "跟随ultralytics解析", "purpose": "核心(ultralytics依赖)", "evidence_path": "fire_detection/requirements.txt", "grade": "B", "needed_for": ["P6", "G7", "G1"]},
+    {"package": "Pillow", "version_evidence": "requirements >=10.0.0; 生产代码直接使用(Image.open/crop/encode)", "recommended_pin": ">=10,<13 跟随解析", "purpose": "核心推理(图像IO)", "evidence_path": "fire_detection/requirements.txt; predict_best_fusion.py", "grade": "B", "needed_for": ["P6", "G7"]},
+    {"package": "pycocotools", "version_evidence": "requirements >=2.0.7; 仅数据处理/评测用, 推理链未import", "recommended_pin": "可暂缓", "purpose": "训练/数据处理", "evidence_path": "fire_detection/requirements.txt", "grade": "B", "needed_for": ["G1"], "needed_for_p6_g7": false},
+    {"package": "matplotlib/seaborn", "version_evidence": "requirements >=3.7.0 / >=0.12.0; ultralytics自身会拉matplotlib", "recommended_pin": "matplotlib跟随ultralytics; seaborn仅训练可视化可暂缓", "purpose": "训练可视化", "evidence_path": "fire_detection/requirements.txt", "grade": "B", "needed_for": ["G1"], "needed_for_p6_g7": "matplotlib被动带入"},
+    {"package": "tqdm/pyyaml/loguru", "version_evidence": "requirements >=4.65.0 / >=6.0 / >=0.7.0; tqdm+pyyaml由ultralytics带入; loguru生产推理链未import", "recommended_pin": "跟随解析; loguru可暂缓", "purpose": "工具", "evidence_path": "fire_detection/requirements.txt", "grade": "B", "needed_for_p6_g7": "tqdm/pyyaml被动带入"},
+    {"package": "gradio", "version_evidence": "README L232 仅说明历史siglip_learn含Gradio应用; 无任何版本痕迹; 应用源码不在仓库(R5/R6 FAIL已知)", "recommended_pin": "UNKNOWN; 明确暂缓(非P6/G7必需)", "purpose": "可视化界面", "evidence_path": "fire_detection/README.md L232", "grade": "U(UNKNOWN)", "needed_for": [], "needed_for_p6_g7": false},
+    {"package": "Python 解释器", "version_evidence": "历史A: 3.11.15 (日志横幅); 本机现有: 仅3.13.5 ×2; 现有venv为3.13且不得污染", "recommended_pin": "3.11 (与历史环境同线); 备选3.13+cu128组合未经任何本地证据支持", "purpose": "环境基座", "evidence_path": "fire_detection/outputs/logs/resume_yolov8n_960.out.log; probes/interpreters.txt", "grade": "A(历史) / B(新环境推荐)", "needed_for": ["P6", "G7", "G1"]}
+  ],
+  "critical_gaps": [
+    "requirements.txt 不含 transformers/timm/safetensors —— 融合链两骨干的加载依赖从未被仓库版本化(F-01环境不可复现的直接原因之一)",
+    "transformers/timm 精确版本在本地零证据(环境灭失) → 只能安装时取稳定版并立即 freeze 归档, 不得事后声称'复现了历史版本'",
+    "torchvision 与 torch 2.8.0 的配对、以及 py3.11+cu128 wheel 在下载源的现势可用性 → 需联网核实",
+    "历史环境属另一台机器(RTX 5070 Ti) —— 本机5060同属sm_120/cu128线, 架构兼容, 但驱动差异(573.24)下的实际运行仍需冒烟验证"
+  ]
+}

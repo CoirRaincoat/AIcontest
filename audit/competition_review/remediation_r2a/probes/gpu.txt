@@ -1,0 +1,19 @@
+== nvidia-smi ==
+Thu Aug 27 22:40:35 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 573.24                 Driver Version: 573.24         CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5060 ...  WDDM  |   00000000:01:00.0  On |                  N/A |
+| N/A   52C    P4             11W /  115W |    2830MiB /   8151MiB |      4%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+
+== nvidia-smi query ==
+name, driver_version, compute_cap, memory.total [MiB], memory.free [MiB]
+NVIDIA GeForce RTX 5060 Laptop GPU, 573.24, 12.0, 8151 MiB, 4981 MiB

@@ -1,0 +1,54 @@
+{
+  "legacy": {
+    "yolo_m": {
+      "path": "fire_detection/runs/detect/runs/train/fire_yolo26m_960/weights/best.pt",
+      "sha256": "788478d07589d05795334ad23f47c59a7e4b006cca8cbc6ce1857e2607299d60"
+    },
+    "yolo_s": {
+      "path": "fire_detection/runs/detect/runs/train/fire_yolo26s_960/weights/best.pt",
+      "sha256": "2115c79cbcdbf7b1c946bd6b2456895f1a9a8c28e09f786eaa0d212aa0974e85"
+    },
+    "yolo_s_aug": {
+      "path": "fire_detection/runs/detect/runs/train/fire_yolo26s_aug_960/weights/best.pt",
+      "sha256": "7c6a37fd3cf54e31801d16029704580a9088fff982182a173ed900a3e41ac54b"
+    },
+    "siglip_head": {
+      "path": "fire_detection/runs_siglip/siglip2_linear_seed2026/best_head.pt",
+      "sha256": "08d77aafc6d3d4c26e928e64d5561ac57885de650477b0556d8d3e5c1d113b7b"
+    },
+    "dino_head": {
+      "path": "fire_detection/runs_dinov3/dinov3_vitb16_linear_seed42/best_head.pt",
+      "sha256": "a31b7a3ae0b8ec617973ff9118bb0921e09912b06c74e9b87acbc497e7bcef08"
+    },
+    "crop_head": {
+      "path": "fire_detection/runs_siglip/siglip2_crop_v2_seed2026/best_head.pt",
+      "sha256": "50beadfdeb9b0f40e16ca54b6a23e4da9c84bb14223b32cb94c46299d942acc1"
+    }
+  },
+  "reg1": {
+    "yolo_m": {
+      "path": "audit/competition_review/remediation_g1/formal_runs/reg1_fire_yolo26m_960/weights/best.pt",
+      "sha256": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef"
+    },
+    "yolo_s": {
+      "path": "audit/competition_review/remediation_g1/formal_runs/reg1_fire_yolo26s_960/weights/best.pt",
+      "sha256": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f"
+    },
+    "yolo_s_aug": {
+      "path": "audit/competition_review/remediation_g1/formal_runs/reg1_fire_yolo26s_aug_960/weights/best.pt",
+      "sha256": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe"
+    },
+    "siglip_head": {
+      "path": "audit/competition_review/remediation_g1/runs_heads/siglip2_linear_reg1_seed2026/best_head.pt",
+      "sha256": "c7ae93114e7a693f459cb6f239e700dee29c9f39d9009e6b592710ada53220e5"
+    },
+    "dino_head": {
+      "path": "audit/competition_review/remediation_g1/runs_heads/dinov3_vitb16_linear_reg1_seed42/best_head.pt",
+      "sha256": "8b8005f8f43f1d82f1a68f92e770047cb3948914bbeb9b7cf7ea5d84c93f8975"
+    },
+    "crop_head": {
+      "path": "audit/competition_review/remediation_g1/runs_heads/siglip2_crop_reg1_seed2026/best_head.pt",
+      "sha256": "b57ee5f86115a31fcfda23a2fb14bb8c606bf367399e3a9cbb1ecd36f170647a"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "settings_version": "0.0.6",
+  "datasets_dir": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\datasets",
+  "weights_dir": "weights",
+  "runs_dir": "runs",
+  "uuid": "b62bf6c4cee68c00d8547aa99b3f56a23d3f9948c9492248f6b782a9bc3f6308",
+  "sync": false,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "hub": false,
+  "mlflow": true,
+  "neptune": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}

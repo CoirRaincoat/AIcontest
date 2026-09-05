@@ -1,0 +1,112 @@
+{
+  "family_sizes": {
+    "0ceaac62c19eb77b75d3d34475d3615e": 8,
+    "20250526_firesmoke": 82,
+    "20260116_fs_sjt": 486,
+    "20260320_sjt_fs": 187,
+    "raw_fire_relabel_dp": 337
+  },
+  "families": {
+    "20260116_fs_sjt": {
+      "train": 385,
+      "val": 101,
+      "gap_median": 1,
+      "g_le2": 91,
+      "g_le10": 101,
+      "g_le100": 101
+    },
+    "raw_fire_relabel_dp": {
+      "train": 274,
+      "val": 63,
+      "gap_median": 1,
+      "g_le2": 63,
+      "g_le10": 63,
+      "g_le100": 63
+    },
+    "20260320_sjt_fs": {
+      "train": 147,
+      "val": 40,
+      "gap_median": 1,
+      "g_le2": 34,
+      "g_le10": 39,
+      "g_le100": 40
+    },
+    "20250526_firesmoke": {
+      "train": 69,
+      "val": 13,
+      "gap_median": 2,
+      "g_le2": 7,
+      "g_le10": 12,
+      "g_le100": 13
+    },
+    "0ceaac62c19eb77b75d3d34475d3615e": {
+      "train": 5,
+      "val": 3,
+      "gap_median": 110,
+      "g_le2": 0,
+      "g_le10": 1,
+      "g_le100": 1
+    }
+  },
+  "summary": {
+    "total_val": 220,
+    "le2": 195,
+    "le10": 216,
+    "le100": 218,
+    "pct_val_with_neighbor_le10": 98.2,
+    "pct_val_with_neighbor_le100": 99.1
+  },
+  "adjacent_examples": [
+    {
+      "val": "20260116_fs_sjt_00002",
+      "train_neighbor": "20260116_fs_sjt_00000",
+      "seq_gap": 2
+    },
+    {
+      "val": "20260116_fs_sjt_00008",
+      "train_neighbor": "20260116_fs_sjt_00007",
+      "seq_gap": 1
+    },
+    {
+      "val": "raw_fire_relabel_dp_20330",
+      "train_neighbor": "raw_fire_relabel_dp_20329",
+      "seq_gap": 1
+    },
+    {
+      "val": "raw_fire_relabel_dp_20332",
+      "train_neighbor": "raw_fire_relabel_dp_20331",
+      "seq_gap": 1
+    },
+    {
+      "val": "20260320_sjt_fs_1354",
+      "train_neighbor": "20260320_sjt_fs_1343",
+      "seq_gap": 11
+    },
+    {
+      "val": "20260320_sjt_fs_1435",
+      "train_neighbor": "20260320_sjt_fs_1434",
+      "seq_gap": 1
+    },
+    {
+      "val": "20250526_firesmoke_00023",
+      "train_neighbor": "20250526_firesmoke_00024",
+      "seq_gap": 1
+    },
+    {
+      "val": "20250526_firesmoke_00062",
+      "train_neighbor": "20250526_firesmoke_00071",
+      "seq_gap": 9
+    },
+    {
+      "val": "0ceaac62c19eb77b75d3d34475d3615e_07500",
+      "train_neighbor": "0ceaac62c19eb77b75d3d34475d3615e_07690",
+      "seq_gap": 190
+    },
+    {
+      "val": "0ceaac62c19eb77b75d3d34475d3615e_07580",
+      "train_neighbor": "0ceaac62c19eb77b75d3d34475d3615e_07690",
+      "seq_gap": 110
+    }
+  ],
+  "caveat": "同族相邻序号高度提示同源视频连续帧；最终确认需看图核验"
+}

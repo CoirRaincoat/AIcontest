@@ -1,0 +1,48 @@
+{
+  "frozen_at": "2026-08-28",
+  "terminal": true,
+  "project_status": "READY_FOR_EXTERNAL_PROMOTION_TEST",
+  "not": "SUBMISSION_READY",
+  "engineering_environment": "REPRODUCED",
+  "g3_g4": "CLOSED_END_TO_END",
+  "submission": "AWAITING_OFFICIAL_TEST_SET",
+  "production_weights": "NOT_SWITCHED",
+  "candidates": [
+    {
+      "candidate_id": "LEGACY_ORIGINAL_WITH_KNOWN_LEAKAGE",
+      "role": "legacy production model",
+      "is_default_model": true,
+      "f11": "CONFIRMED/UNRESOLVED",
+      "engineering_runnable": true,
+      "trustworthy_leakfree_metric": false,
+      "readiness": {"raw": 49, "capped": 39, "cap": "data_leakage_le39"},
+      "verdict": "NOT_READY"
+    },
+    {
+      "candidate_id": "REG1_GROUPED_RC",
+      "role": "release candidate",
+      "is_default_model": false,
+      "f11": "CLOSED_FOR_REG1",
+      "engineering_runnable": true,
+      "trustworthy_leakfree_metric": true,
+      "holdout": {"n": 146, "tp": 99, "fp": 18, "fn": 7, "tn": 22,
+                  "precision": 0.8462, "recall": 0.9340, "f1_diagnostic": 0.8879,
+                  "ci95": {"precision": [0.7949, 0.8974], "recall": [0.90, 0.9706]},
+                  "same_source_not_external": true},
+      "readiness": {"raw": 57, "capped": 57, "label": "under-validated (same-source not external)"},
+      "verdict": "RELEASE_CANDIDATE"
+    }
+  ],
+  "promotion_gate": {
+    "required": ["external paired comparison (frozen rules, no overlap)", "OR official test set"],
+    "dfire": "NOT_USE_YET (license/source unverified; see PROMOTION_GATE_PLAN.md)",
+    "no_f1_auto_selection": true,
+    "no_overwrite_same_name_weights": true
+  },
+  "no_action_taken": ["no re-training", "no threshold/seed change", "no weight deletion/move/overwrite/rename", "no production switch"],
+  "recovery_index": [
+    "MODEL_CANDIDATE_REGISTRY.json", "CANDIDATE_COMPARISON.md", "PROMOTION_GATE_PLAN.md",
+    "PRODUCTION_SWITCH_AND_ROLLBACK.md", "FINAL_PROJECT_STATUS.md", "this file",
+    "remediation_g1/REG1_ASSETS.json", "machine/g1_controller_status.json"
+  ]
+}

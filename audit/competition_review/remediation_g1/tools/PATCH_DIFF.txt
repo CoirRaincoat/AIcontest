@@ -1,0 +1,37 @@
+Audit COPY only - production file untouched. Patches:
+## ROOT
+  - ROOT = Path(r"C:\AI\fire_detection")
+  + ROOT = Path(r"C:\Users\CoirRaincoat\PyCharmMiscProject\AIcontest\AI\fire_detection")
+
+## model_settings
+  - model_settings = {
+        "yolo26m": ROOT
+        / "runs"
+        / "detect"
+        / "runs"
+        / "train"
+        / "fire_yolo26m_960"
+        / "weights"
+        / "best.pt",
+        "yolo26s": ROOT
+        / "runs"
+        / "detect"
+        / "runs"
+        / "train"
+        / "fire_yolo26s_960"
+        / "weights"
+        / "best.pt",
+        "yolo26s_aug": ROOT
+        / "runs"
+        / "detect"
+        / "runs"
+        / "train"
+        / "fire_yolo26s_aug_960"
+        / "weights"
+        / "best.pt",
+    }
+  + model_settings = {
+        "yolo26m": Path(r"C:\Users\CoirRaincoat\PyCharmMiscProject\AIcontest\AI\audit\competition_review\remediation_g1\formal_runs\reg1_fire_yolo26m_960\weights\best.pt"),
+        "yolo26s": Path(r"C:\Users\CoirRaincoat\PyCharmMiscProject\AIcontest\AI\audit\competition_review\remediation_g1\formal_runs\reg1_fire_yolo26s_960\weights\best.pt"),
+        "yolo26s_aug": Path(r"C:\Users\CoirRaincoat\PyCharmMiscProject\AIcontest\AI\audit\competition_review\remediation_g1\formal_runs\reg1_fire_yolo26s_aug_960\weights\best.pt"),
+    }

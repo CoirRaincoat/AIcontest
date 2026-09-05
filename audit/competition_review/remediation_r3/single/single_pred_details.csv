@@ -1,0 +1,2 @@
+﻿image_name,prediction,siglip_score,siglip_positive,dino_score,dino_positive,crop_score,crop_rescue,yolo_votes,yolo26m,yolo26s,yolo26s_aug
+0ceaac62c19eb77b75d3d34475d3615e_07500.jpg,0,0.05856323,0,0.01752263,0,-1.00000000,0,0,0,0,0

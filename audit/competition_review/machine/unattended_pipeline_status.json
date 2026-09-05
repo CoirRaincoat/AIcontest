@@ -1,0 +1,26 @@
+{
+  "pipeline": "R2B→R3→G1→G2→G6→POST_AUDIT (unattended, authorized 2026-08-27; executed 2026-08-28)",
+  "updated_at_stage": "STOPPED at G1-training budget gate (formal training not started). Final report: POST_REMEDIATION_AUDIT.md + machine/post_remediation_summary.json",
+  "stop_point": "G1 formal training",
+  "stop_reason": "PROJECTED_OVER_BUDGET: 3-model reg1 retrain projects ~9.7h (m 3.83h + s 2.77h + s_aug 3.09h) on RTX 5060 Laptop, exceeding the frozen <=8h GPU wall-clock budget; stop-before-formal per mandate",
+  "hard_failure": null,
+  "stages": {
+    "R2B_env": {"status": "COMPLETE", "detail": "Python 3.11.9 + torch 2.8.0+cu128 + torchvision 0.23.0+cu128 + ultralytics 8.4.87 + transformers 5.16.1 + timm 1.0.28; verify_env_gate 17/17 PASS; frozen_requirements.txt + wheel sha256 archived"},
+    "R3_e2e_p6_g7": {"status": "COMPLETE", "detail": "S0 weight SHA match; S4 all 5 weight types load offline; S5 single-image rc0; S6 G4 corrupt injection rc3+PARTIAL+validator-reject CLOSED; S7 G3 220-image full eval == E019 byte-identical CLOSED; S8 P6 12/12 pred bits (11/12 scores +-1e-3, 1 dino drift 2e-3 FP16); S9 G7 latency/VRAM recorded; S10 preflight 0 corrupt"},
+    "G1_prep_freeze": {"status": "COMPLETE", "detail": "773 clusters reproduced, 922/178 regroup, 84 moved, 32 boundary pairs; 3-way split holdout146/calib198/train698 + quarantine58; cross d<=8 edges = 0; SPLIT_FREEZE.json + per_image_sha256.json + data_reg1.yaml + junction views frozen"},
+    "G1_training": {"status": "BLOCKED", "detail": "dry-run m(172.3s/epoch)+s(134.8s/epoch) complete (metric-unread, batch8 no OOM); projection 9.7h > 8h budget -> formal training not started per stop-before-formal. G1_TRAINING_BLOCKED.md has evidence + resume commands"},
+    "G2_evaluation": {"status": "BLOCKED", "detail": "depends on G1 reg1 model (not produced); g2_eval.py driver prepared but not run"},
+    "G6_rehearsal": {"status": "BLOCKED", "detail": "depends on G1 reg1 assets per design; could alternatively run against original production model (already R3-validated) if user authorizes a G1-independent rehearsal"},
+    "post_audit": {"status": "COMPLETE", "detail": "POST_REMEDIATION_AUDIT.md + machine/post_remediation_summary.json written"}
+  },
+  "retry_ledger": {"network_transient": 1, "transformers_timm_compat": 0, "training_checkpoint_resume": 0,
+    "network_transient_detail": "attempt1 pip download killed by runner ~55min cap; attempt2 8-way ranged download completed (wheel sha256 34c55443aafd...bb596)"},
+  "budgets": {"gpu_wall_clock_formal_training": "<=8h (projection 9.7h -> STOPPED)", "new_files": "<=20GB (complied)", "min_C_free": ">=50GB (complied)"},
+  "registry_new_dirs": [
+    "C:\\fire_envs\\py311", "C:\\fire_envs\\sf2026_min", "C:\\fire_envs\\dl_torch",
+    "audit/competition_review/remediation_r2b", "audit/competition_review/remediation_r3",
+    "audit/competition_review/remediation_g1", "audit/competition_review/remediation_g2",
+    "audit/competition_review/remediation_g6"
+  ],
+  "forbidden_respected": ["no PATH/sys-Python changes", "no overwrite/delete of existing data/weights/outputs/reports/R1 patches", "no git state changes", "official sources only (python.org/download.pytorch.org/pypi)", "no auto weight/data downloads (HF cached + yolo26 init weights on disk)", "no DFire in G1", "no threshold/rule changes", "no rerun-on-bad-metrics", "no production-code edits (dead ROOT path worked around via explicit CLI args)"]
+}

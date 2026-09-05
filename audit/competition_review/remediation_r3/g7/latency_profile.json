@@ -1,0 +1,88 @@
+{
+  "method": "G7 latency / VRAM profiling driver (measurement only; production code untouched).\n\nRun with the NEW venv python. Method (recorded verbatim in the output JSON):\n  A. cold_start        : production entry as a fresh subprocess over the P6 12 images,\n                         wall time around the whole process (imports + weight loads + inference).\n  B. warm_end_to_end   : two further identical subprocess runs (OS page cache warm);\n                         median of the two reported.\n  C. stage_decomp      : in-process, production stage functions called exactly as main() calls\n                         them (same order, same argparse defaults obtained via parse_args),\n                         one full warm-up pass discarded, then 3 timed passes\n                         (torch.cuda.synchronize around each stage).\n  D. single_image_chain: production stage functions on a ONE-image list, 3 different images,\n                         weights reload per call -> upper-bound per-image chain latency.\n  E. peak VRAM         : torch.cuda.max_memory_allocated for in-process passes + an\n                         nvidia-smi sampler thread (0.5 s) around every subprocess run.\n\nBatched VLM stages load weights once per CALL, so a true per-image marginal cost is not\nattributable without modifying production code (forbidden); G7 therefore reports\namortized per-image means (stage_total/12, warm totals/12) and medians over runs,\nwith n stated. Numbers are recorded, not judged.",
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "torch": "2.8.0+cu128",
+  "imgsz": 960,
+  "device": "0",
+  "n_images": 12,
+  "venv_python": "C:\\fire_envs\\sf2026_min\\Scripts\\python.exe",
+  "subprocess_runs": [
+    {
+      "tag": "cold",
+      "wall_s": 59.084,
+      "rc": 0,
+      "peak_mem_used_MiB": 5181,
+      "max_temp_C": 59,
+      "n_samples": 100
+    },
+    {
+      "tag": "warm1",
+      "wall_s": 61.218,
+      "rc": 0,
+      "peak_mem_used_MiB": 5115,
+      "max_temp_C": 53,
+      "n_samples": 104
+    },
+    {
+      "tag": "warm2",
+      "wall_s": 56.949,
+      "rc": 0,
+      "peak_mem_used_MiB": 5079,
+      "max_temp_C": 58,
+      "n_samples": 96
+    }
+  ],
+  "cold_start_s": 59.084,
+  "warm_end_to_end_median_s": 59.0835,
+  "stage_decomp_timed_passes_s": [
+    {
+      "siglip": 6.2941,
+      "dino": 2.6331,
+      "yolo_m": 1.4111,
+      "yolo_s": 1.3663,
+      "yolo_s_aug": 1.2366,
+      "proposals": 4.4057,
+      "crop": 9.8294
+    },
+    {
+      "siglip": 7.7202,
+      "dino": 2.7928,
+      "yolo_m": 1.335,
+      "yolo_s": 1.2713,
+      "yolo_s_aug": 1.2332,
+      "proposals": 3.9409,
+      "crop": 9.6597
+    },
+    {
+      "siglip": 8.0502,
+      "dino": 3.0805,
+      "yolo_m": 1.5434,
+      "yolo_s": 1.2545,
+      "yolo_s_aug": 1.2801,
+      "proposals": 3.9592,
+      "crop": 10.1237
+    }
+  ],
+  "stage_medians_s": {
+    "siglip": 7.7202,
+    "dino": 2.7928,
+    "yolo_m": 1.4111,
+    "yolo_s": 1.2713,
+    "yolo_s_aug": 1.2366,
+    "proposals": 3.9592,
+    "crop": 9.8294
+  },
+  "warm_inprocess_total_s": 28.221,
+  "amortized_warm_per_image_s": 2.3518,
+  "peak_vram_allocated_MiB": 1776.9,
+  "single_image_full_chain_s": {
+    "runs": [
+      20.08,
+      19.712,
+      19.496
+    ],
+    "median_s": 19.712,
+    "note": "per-stage weight reload included (upper bound)"
+  },
+  "subprocess_output_keys": 12
+}

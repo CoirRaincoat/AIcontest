@@ -1,0 +1,47 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "1-3 complete",
+  "baseline_fingerprint": "git:874de91aafdd18b30e083ee8801e570936953799+baseline_sha256(225)",
+  "official_metrics_panel_interim": {
+    "note": "内部验证集=官方训练集切出的220图; 官方测试成绩未知/待主办方确认",
+    "dataset": "outputs/val_gt.json (n=220, pos=165) 与官方 train_image.json 逐键一致",
+    "threshold_rule": "(任一YOLO[conf m0.10/s0.20/s_aug0.20] 且 SigLIP2>=0.22 且 DINOv3>=0.08) OR crop_siglip>=0.97",
+    "chains": {
+      "S1_yolo_siglip_thr022": {"tp": 161, "fp": 10, "fn": 4, "tn": 45, "P": 0.9415, "R": 0.9758, "match_stored": true},
+      "S2_dino_veto_thr008": {"tp": 161, "fp": 9, "fn": 4, "tn": 46, "P": 0.9471, "R": 0.9758, "match_stored": true},
+      "S3_crop_rescue_097 = S4_live_final": {"tp": 162, "fp": 9, "fn": 3, "tn": 46, "P": 0.9474, "R": 0.9818, "f1": 0.9643, "matches_doc_claim_P09474_R09818": true},
+      "app_full_rescue_recomputed_at_documented_thresholds": {"tp": 164, "fp": 9, "fn": 1, "tn": 46, "P": 0.948, "R": 0.9939, "f1": 0.9704, "matches_doc_claim": true}
+    },
+    "evidence_grade": "A"
+  },
+  "hard_findings": [
+    {"id": "F-01", "sev": "P1", "status": "CONFIRMED", "title": "生产推理环境(C:\\AI + conda envs)缺失于本机; 入口默认不可运行"},
+    {"id": "F-11", "sev": "P1", "status": "CONFIRMED(模式)", "title": "val 216/220 图在 train 有<=10序号差近邻帧; 中位差=1; 单图随机划分无分组"},
+    {"id": "F-03", "sev": "P1", "status": "OPEN", "title": "可视化/云端部署材料在仓库外且本机缺失 -> R5/R6 仅声明级"}
+  ],
+  "notable_resolutions": [
+    {"id": "F-04", "result": "1101-1100=raw_fire_relabel_dp_20402(1).jpg 与规范文件SHA256相同, 不属官方集合"},
+    {"id": "F-05", "result": "文档命名产物全部定位; 两大成绩声明由现存产物在记录阈值下精确复现(A级)"},
+    {"id": "F-07", "result": "融合引用的全部权重路径存在且有效; 双嵌套目录为游离重复产物"}
+  ],
+  "data_audit_digest": {
+    "coco_images": 1100, "anns": 1445, "categories": [{"id": 0, "name": "fire"}],
+    "bbox_oob_tol2px": 1, "zero_box_images": 236, "image_level_pos": 864,
+    "consistency_box_vs_label_conflicts": 0,
+    "split_train_val_intersection": 0, "coverage_of_official_by_splits": "100%",
+    "val_gt_vs_official_mismatch": 0
+  },
+  "dimension_scores_preview_pending_phases": true,
+  "unverified_items": [
+    "端到端运行时复现(F-01阻塞)",
+    "网页应用运行时 parity(F-06)",
+    "DFire许可证原文与引用规范(F-09)",
+    "分类头(siglip/dino/crop)训练清单是否纯官方(高概率是,B级)",
+    "官方测试集先验下的Precision稳定性(F-13)"
+  ],
+  "next_actions_stage4_proposal": [
+    "用既有分数列生成阈值扫描表+二项95%CI(审计目录内, 无GPU)",
+    "提案: 按序列族重划 held-out 场景验证集后再评估(F-11修复)",
+    "申请: 阶段6小批量真实推理抽查FP/FN(输出限审计目录)"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "rule": "base full-image fusion OR high-confidence crop rescue",
+  "image_count": 220,
+  "positive_count": 171,
+  "negative_count": 49,
+  "siglip_checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs_siglip\\siglip2_linear_seed2026\\best_head.pt",
+  "siglip_threshold": 0.22,
+  "dino": {
+    "checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs_dinov3\\dinov3_vitb16_linear_seed42\\best_head.pt",
+    "threshold": 0.08
+  },
+  "crop_rescue": {
+    "checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs_siglip\\siglip2_crop_v2_seed2026\\best_head.pt",
+    "threshold": 0.97,
+    "proposal_conf": 0.03,
+    "context": 0.15,
+    "min_size": 96,
+    "max_proposals": 8
+  },
+  "yolo": {
+    "m": {
+      "weights": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26m_960\\weights\\best.pt",
+      "conf": 0.1
+    },
+    "s": {
+      "weights": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26s_960\\weights\\best.pt",
+      "conf": 0.2
+    },
+    "s_aug": {
+      "weights": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\runs\\detect\\runs\\train\\fire_yolo26s_aug_960\\weights\\best.pt",
+      "conf": 0.2
+    },
+    "imgsz": 960,
+    "iou": 0.45,
+    "min_area": 0.0
+  },
+  "submission_file": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_r3\\full220\\val_pred_reg0.json",
+  "details_file": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_r3\\full220\\val_pred_reg0_details.csv"
+}

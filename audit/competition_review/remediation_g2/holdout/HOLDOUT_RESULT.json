@@ -1,0 +1,44 @@
+{
+  "main_rule": {
+    "name": "production_fusion_rule_FROZEN",
+    "siglip_tau": 0.22,
+    "dino_tau": 0.08,
+    "crop_tau": 0.97,
+    "votes_min": 1,
+    "structure": "votes>=1 & s>=tau_s & d>=tau_d, OR crop>=tau_c",
+    "provenance": "E014/E002 + P6_APPROVAL_REQUEST.md; unchanged by this pipeline"
+  },
+  "metrics": {
+    "tp": 99,
+    "fp": 18,
+    "fn": 7,
+    "tn": 22,
+    "precision": 0.8461538461538461,
+    "recall": 0.9339622641509434,
+    "f1_diagnostic": 0.8878923766816144
+  },
+  "bootstrap_95CI": {
+    "precision_95CI": [
+      0.7949,
+      0.8974
+    ],
+    "recall_95CI": [
+      0.9,
+      0.9706
+    ]
+  },
+  "secondary_pre_registered": {
+    "F15_app_fullimage_rule_EXPLORATORY": {
+      "tp": 56,
+      "fp": 0,
+      "fn": 50,
+      "tn": 40,
+      "precision": 1.0,
+      "recall": 0.5283018867924528,
+      "f1_diagnostic": 0.6913580246913581
+    }
+  },
+  "n": 146,
+  "statement": "This result resolves THIS round's content-cluster leakage (grouped isolation, d<=8 cross-set edges = 0). It is same-source data, NOT true external validation.",
+  "holdout_opened_once": true
+}

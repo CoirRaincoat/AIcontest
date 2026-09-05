@@ -1,0 +1,124 @@
+{
+  "gate": "R2-B environment acceptance",
+  "all_pass": true,
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "executable": "C:\\fire_envs\\sf2026_min\\Scripts\\python.exe",
+  "checks": [
+    {
+      "gate": "G1_python_version",
+      "pass": true,
+      "detail": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]"
+    },
+    {
+      "gate": "G2_isolation_sys_executable",
+      "pass": true,
+      "detail": "C:\\fire_envs\\sf2026_min\\Scripts\\python.exe"
+    },
+    {
+      "gate": "G3_torch_version",
+      "pass": true,
+      "detail": "2.8.0+cu128"
+    },
+    {
+      "gate": "G4_torch_build_cuda_128",
+      "pass": true,
+      "detail": "12.8"
+    },
+    {
+      "gate": "G5_cuda_available",
+      "pass": true,
+      "detail": true
+    },
+    {
+      "gate": "G6_gpu_name",
+      "pass": true,
+      "detail": "NVIDIA GeForce RTX 5060 Laptop GPU"
+    },
+    {
+      "gate": "G7_capability_120",
+      "pass": true,
+      "detail": [
+        12,
+        0
+      ]
+    },
+    {
+      "gate": "G8_sm120_in_arch_list",
+      "pass": true,
+      "detail": [
+        "sm_61",
+        "sm_70",
+        "sm_75",
+        "sm_80",
+        "sm_86",
+        "sm_90",
+        "sm_100",
+        "sm_120"
+      ]
+    },
+    {
+      "gate": "G9_cuda_fp32_matmul",
+      "pass": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "gate": "G10_cuda_fp16_matmul",
+      "pass": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "gate": "G11_cuda_fp16_conv",
+      "pass": true,
+      "detail": [
+        1,
+        8,
+        62,
+        62
+      ]
+    },
+    {
+      "gate": "G12_vram_reported",
+      "pass": true,
+      "detail": "8151 MiB"
+    },
+    {
+      "gate": "G13_torchvision_version",
+      "pass": true,
+      "detail": "0.23.0+cu128"
+    },
+    {
+      "gate": "G14_all_module_imports",
+      "pass": true,
+      "detail": {
+        "ultralytics": "8.4.87",
+        "transformers": "5.16.1",
+        "timm": "1.0.28",
+        "safetensors": "0.8.0",
+        "numpy": "2.4.6",
+        "PIL": "12.3.0",
+        "cv2": "5.0.0"
+      }
+    },
+    {
+      "gate": "G15_production_entry_importable",
+      "pass": true,
+      "detail": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\src"
+    },
+    {
+      "gate": "G16_C_free_ge_70GB",
+      "pass": true,
+      "detail": "79.5 GB free"
+    },
+    {
+      "gate": "G17_pip_check",
+      "pass": true,
+      "detail": "No broken requirements found."
+    }
+  ]
+}

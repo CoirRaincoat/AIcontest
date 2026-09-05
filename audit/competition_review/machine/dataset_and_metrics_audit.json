@@ -1,0 +1,246 @@
+{
+  "coco": {
+    "top_level_keys": [
+      "categories",
+      "images",
+      "annotations"
+    ],
+    "other_keys": [],
+    "n_images": 1100,
+    "n_anns": 1445,
+    "categories": [
+      {
+        "id": 0,
+        "name": "fire"
+      }
+    ],
+    "dup_file_names": [],
+    "dup_image_ids": 0,
+    "orphan_ann_image_ids": [],
+    "bbox_missing_fields": 0,
+    "wh_nonpositive": 0,
+    "bbox_oob_tol2px": 1,
+    "images_with_zero_boxes": 236,
+    "zero_box_sample": [
+      "20250526_firesmoke_00038.jpg",
+      "raw_fire_relabel_dp_20474.jpg",
+      "raw_fire_relabel_dp_20681.jpg",
+      "raw_fire_relabel_dp_20391.jpg",
+      "20260116_fs_sjt_00561.jpg",
+      "20260320_sjt_fs_1555.jpg",
+      "20260116_fs_sjt_00385.jpg",
+      "20260116_fs_sjt_00134.jpg"
+    ],
+    "cat_distribution": {
+      "0": 1445
+    },
+    "box_area_median_px": 3316
+  },
+  "image_label_json": {
+    "n": 1100,
+    "value_types": {
+      "int": 1100
+    },
+    "non_binary_values": {},
+    "positive_count": 864
+  },
+  "raw_images": {
+    "count": 1101,
+    "ext": {
+      ".jpg": 1089,
+      ".png": 12
+    }
+  },
+  "f04_extra_raw_vs_coco": [
+    {
+      "file": "raw_fire_relabel_dp_20402(1).jpg",
+      "bytes": 231172,
+      "sha256_16": "50264a1ddb0fbeb0"
+    }
+  ],
+  "f04_coco_missing_on_disk": [],
+  "sets": {
+    "raw_minus_imagejson": 1,
+    "imagejson_minus_raw": [],
+    "imagejson_minus_coco": [],
+    "coco_minus_imagejson": [],
+    "case_collisions_raw": {},
+    "case_collisions_labels": {}
+  },
+  "consistency": {
+    "has_box_but_label0": [],
+    "has_box_but_label0_count": 0,
+    "label1_zero_box_count": 0,
+    "label1_zero_box_sample": []
+  },
+  "splits": {
+    "train_n": 880,
+    "val_n": 220,
+    "train_val_intersection": [],
+    "split_union_not_in_official": [],
+    "official_not_used_in_splits": [],
+    "train_pairing_ok": 880,
+    "val_pairing_ok": 220,
+    "val_label_ext_sample": [
+      "0ceaac62c19eb77b75d3d34475d3615e_07500.txt",
+      "0ceaac62c19eb77b75d3d34475d3615e_07580.txt",
+      "0ceaac62c19eb77b75d3d34475d3615e_07695.txt"
+    ]
+  },
+  "val_gt": {
+    "n": 220,
+    "pos": 165,
+    "mismatch_vs_official": {},
+    "keys_not_official": []
+  },
+  "metrics_recompute": [
+    {
+      "n_common": 220,
+      "missing_from_pred": 0,
+      "extra_keys": 0,
+      "tp": 161,
+      "fp": 10,
+      "fn": 4,
+      "tn": 45,
+      "precision": 0.9415,
+      "recall": 0.9758,
+      "f1": 0.9583,
+      "artifact": "S1_yolo_siglip_thr022",
+      "stored_metrics": {
+        "precision": 0.9415204678362573,
+        "recall": 0.9757575757575757,
+        "f1": 0.9583333333333334,
+        "tp": 161,
+        "fp": 10,
+        "fn": 4,
+        "tn": 45
+      },
+      "match_stored": true,
+      "stored_precision_recall": [
+        0.9415204678362573,
+        0.9757575757575757
+      ]
+    },
+    {
+      "n_common": 220,
+      "missing_from_pred": 0,
+      "extra_keys": 0,
+      "tp": 161,
+      "fp": 9,
+      "fn": 4,
+      "tn": 46,
+      "precision": 0.9471,
+      "recall": 0.9758,
+      "f1": 0.9612,
+      "artifact": "S2_dino_veto_thr008",
+      "stored_metrics": {
+        "precision": 0.9470588235294117,
+        "recall": 0.9757575757575757,
+        "f1": 0.9611940298507462,
+        "tp": 161,
+        "fp": 9,
+        "fn": 4,
+        "tn": 46
+      },
+      "match_stored": true,
+      "stored_precision_recall": [
+        0.9470588235294117,
+        0.9757575757575757
+      ]
+    },
+    {
+      "n_common": 220,
+      "missing_from_pred": 0,
+      "extra_keys": 0,
+      "tp": 163,
+      "fp": 10,
+      "fn": 2,
+      "tn": 45,
+      "precision": 0.9422,
+      "recall": 0.9879,
+      "f1": 0.9645,
+      "artifact": "S3_crop_rescue_095",
+      "stored_metrics": {
+        "precision": 0.9421965317919075,
+        "recall": 0.9878787878787879,
+        "f1": 0.9644970414201184,
+        "tp": 163,
+        "fp": 10,
+        "fn": 2,
+        "tn": 45
+      },
+      "match_stored": true,
+      "stored_precision_recall": [
+        0.9421965317919075,
+        0.9878787878787879
+      ]
+    },
+    {
+      "n_common": 220,
+      "missing_from_pred": 0,
+      "extra_keys": 0,
+      "tp": 162,
+      "fp": 9,
+      "fn": 3,
+      "tn": 46,
+      "precision": 0.9474,
+      "recall": 0.9818,
+      "f1": 0.9643,
+      "artifact": "S3_crop_rescue_097",
+      "stored_metrics": {
+        "precision": 0.9473684210526315,
+        "recall": 0.9818181818181818,
+        "f1": 0.9642857142857142,
+        "tp": 162,
+        "fp": 9,
+        "fn": 3,
+        "tn": 46
+      },
+      "match_stored": true,
+      "stored_precision_recall": [
+        0.9473684210526315,
+        0.9818181818181818
+      ]
+    },
+    {
+      "n_common": 220,
+      "missing_from_pred": 0,
+      "extra_keys": 0,
+      "tp": 162,
+      "fp": 9,
+      "fn": 3,
+      "tn": 46,
+      "precision": 0.9474,
+      "recall": 0.9818,
+      "f1": 0.9643,
+      "artifact": "S4_live_final"
+    },
+    {
+      "n_common": 220,
+      "missing_from_pred": 0,
+      "extra_keys": 0,
+      "tp": 161,
+      "fp": 10,
+      "fn": 4,
+      "tn": 45,
+      "precision": 0.9415,
+      "recall": 0.9758,
+      "f1": 0.9583,
+      "artifact": "S5_fusion_live_nodino"
+    }
+  ],
+  "live_details_columns": [
+    "image_name",
+    "prediction",
+    "siglip_score",
+    "siglip_positive",
+    "dino_score",
+    "dino_positive",
+    "crop_score",
+    "crop_rescue",
+    "yolo_votes",
+    "yolo26m",
+    "yolo26s",
+    "yolo26s_aug"
+  ]
+}

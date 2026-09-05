@@ -1,0 +1,39 @@
+{
+  "rule": "base full-image fusion OR high-confidence crop rescue",
+  "image_count": 146,
+  "positive_count": 117,
+  "negative_count": 29,
+  "siglip_checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_linear_reg1_seed2026\\best_head.pt",
+  "siglip_threshold": 0.22,
+  "dino": {
+    "checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\dinov3_vitb16_linear_reg1_seed42\\best_head.pt",
+    "threshold": 0.08
+  },
+  "crop_rescue": {
+    "checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_crop_reg1_seed2026\\best_head.pt",
+    "threshold": 0.97,
+    "proposal_conf": 0.03,
+    "context": 0.15,
+    "min_size": 96,
+    "max_proposals": 8
+  },
+  "yolo": {
+    "m": {
+      "weights": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26m_960\\weights\\best.pt",
+      "conf": 0.1
+    },
+    "s": {
+      "weights": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_960\\weights\\best.pt",
+      "conf": 0.2
+    },
+    "s_aug": {
+      "weights": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_aug_960\\weights\\best.pt",
+      "conf": 0.2
+    },
+    "imgsz": 960,
+    "iou": 0.45,
+    "min_area": 0.0
+  },
+  "submission_file": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g2\\holdout\\pred.json",
+  "details_file": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g2\\holdout\\pred_details.csv"
+}

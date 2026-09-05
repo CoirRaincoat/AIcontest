@@ -1,0 +1,67 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "G1+G2+grouped-G6 complete — final post-remediation audit",
+  "original_model_g6": {
+    "status": "PASS",
+    "validator_rc": 0,
+    "submission_sha256": "eb01c4c3f5cc52c2",
+    "markers": ["ORIGINAL_MODEL_WITH_KNOWN_LEAKAGE", "SURROGATE_REHEARSAL_NOT_OFFICIAL_SUBMISSION"]
+  },
+  "g1_training": {
+    "status": "COMPLETE",
+    "cumulative_gpu_wall_s": 14134.6,
+    "budget_h": 12,
+    "resume_count": 0,
+    "models": {
+      "m": {"epochs": 80, "wall_s": 6448.5, "best_sha256": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef"},
+      "s": {"epochs": 74, "wall_s": 3612.2, "best_sha256": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f"},
+      "s_aug": {"epochs": 80, "wall_s": 4073.9, "best_sha256": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe"}
+    },
+    "heads": {
+      "siglip_head": "c7ae93114e7a693f", "dino_head": "8b8005f8f43f1d82", "crop_head": "b57ee5f86115a31f"
+    }
+  },
+  "f11_resolution": {
+    "status": "RESOLVED",
+    "conditions_met": 6,
+    "conditions": [
+      "three models trained only on train (698)",
+      "calibration/final not in training (calib=val-only, holdout never used)",
+      "quarantine (58) never used",
+      "checkpoints+rules frozen before holdout open",
+      "holdout evaluated exactly once (lock)",
+      "zero cross-set dHash<=8 edges"
+    ]
+  },
+  "g2_holdout": {
+    "n": 146,
+    "primary_rule": "production_fusion_rule_FROZEN (siglip0.22/dino0.08/crop0.97/votes>=1)",
+    "metrics": {"tp": 99, "fp": 18, "fn": 7, "tn": 22,
+                "precision": 0.8461538461538461, "recall": 0.9339622641509434,
+                "f1_diagnostic": 0.8878923766816144},
+    "bootstrap_95CI": {"precision": [0.7949, 0.8974], "recall": [0.90, 0.9706]},
+    "secondary_F15_exploratory": {"tp": 56, "fp": 0, "fn": 50, "tn": 40, "precision": 1.0, "recall": 0.5283},
+    "calib_diagnostic_panel": "RULE_PANEL_CALIB.json",
+    "statement": "content-cluster-isolated validation (d<=8 cross-set edges=0); same-source data, NOT true external validation"
+  },
+  "grouped_model_g6": {
+    "status": "PASS",
+    "validator_rc": 0,
+    "submission_sha256": "a39fee81a90199aa",
+    "markers": ["GROUPED_MODEL_REG1_RETRAINED", "SURROGATE_REHEARSAL_NOT_OFFICIAL_SUBMISSION"]
+  },
+  "rescoring": {
+    "binding_cap_data_leakage_le39": "LIFTED (F-11 resolved 6/6)",
+    "cap_e2e_le49": "LIFTED (R3 closed)",
+    "cap_independent_val_le69": "PARTIALLY LIFTED (leak-free holdout but same-source; perf still 'under-validated')",
+    "cap_submission_le59": "PARTIALLY LIFTED (chain proven but no official test set)",
+    "raw_score": 42,
+    "verdict": "NOT READY (no official test set; same-source not external)",
+    "no_official_composite_generated": true,
+    "no_ranking_prediction": true
+  },
+  "submission_gates": "NOT lifted (no official test-set JSON)",
+  "model_promotion": "NOT auto-promoted; decision deferred to user",
+  "human_decision_required": "whether to promote grouped reg1 model over production weights",
+  "recovery": ["machine/g1_controller_status.json", "remediation_g1/REG1_ASSETS.json", "this file"]
+}

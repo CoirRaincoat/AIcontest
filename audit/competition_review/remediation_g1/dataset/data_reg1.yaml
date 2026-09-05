@@ -1,0 +1,6 @@
+path: C:/Users/CoirRaincoat/PyCharmMiscProject/AIcontest/AI/audit/competition_review/remediation_g1/dataset
+train: C:\Users\CoirRaincoat\PyCharmMiscProject\AIcontest\AI\audit\competition_review\remediation_g1\dataset\train\train.txt
+val: C:\Users\CoirRaincoat\PyCharmMiscProject\AIcontest\AI\audit\competition_review\remediation_g1\dataset\calib\calib.txt
+nc: 1
+names:
+  0: fire

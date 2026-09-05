@@ -1,0 +1,126 @@
+{
+  "frozen": true,
+  "frozen_before_inference": true,
+  "source_csv": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\outputs\\val_pred_best_siglip_yolo_dino_crop_live_details.csv",
+  "source_csv_sha256": "3ea610772cbba121b8677ffe2a84c7cb3395f9d4736e73f5b5ca39fa75d4acd0",
+  "gt_json_sha256": "47bdc7d7bcd4a94d8bdb532e25722121b6e36746a1dd2718f0aa620e957b6c4c",
+  "rules": [
+    "FP: all 9 FPs -> top4 by siglip_score desc (tie: name asc)",
+    "FN: all 3 FNs",
+    "boundary: |s-0.22|<=0.03 or |crop-0.97|<=0.02 (crop>=0 only), min-margin asc, first 5 not already picked"
+  ],
+  "selection": [
+    {
+      "image": "raw_fire_relabel_dp_20333.jpg",
+      "bucket": "FP",
+      "pred": 1,
+      "gt": 0,
+      "siglip_score": 0.92480469,
+      "crop_score": 0.72460938
+    },
+    {
+      "image": "20260116_fs_sjt_01002.jpg",
+      "bucket": "FP",
+      "pred": 1,
+      "gt": 0,
+      "siglip_score": 0.87109375,
+      "crop_score": 0.84423828
+    },
+    {
+      "image": "20260116_fs_sjt_00372.jpg",
+      "bucket": "FP",
+      "pred": 1,
+      "gt": 0,
+      "siglip_score": 0.8203125,
+      "crop_score": 0.75830078
+    },
+    {
+      "image": "raw_fire_relabel_dp_20662.jpg",
+      "bucket": "FP",
+      "pred": 1,
+      "gt": 0,
+      "siglip_score": 0.62109375,
+      "crop_score": 0.94287109
+    },
+    {
+      "image": "20260116_fs_sjt_00522.jpg",
+      "bucket": "FN",
+      "pred": 0,
+      "gt": 1,
+      "siglip_score": 0.00591278,
+      "crop_score": 0.68798828
+    },
+    {
+      "image": "raw_fire_relabel_dp_20563.jpg",
+      "bucket": "FN",
+      "pred": 0,
+      "gt": 1,
+      "siglip_score": 0.85449219,
+      "crop_score": 0.95800781
+    },
+    {
+      "image": "raw_fire_relabel_dp_20611.jpg",
+      "bucket": "FN",
+      "pred": 0,
+      "gt": 1,
+      "siglip_score": 0.91845703,
+      "crop_score": 0.6875
+    },
+    {
+      "image": "20260116_fs_sjt_00454.jpg",
+      "bucket": "BOUNDARY",
+      "pred": 1,
+      "gt": 1,
+      "siglip_score": 0.81640625,
+      "crop_score": 0.97021484
+    },
+    {
+      "image": "raw_fire_relabel_dp_20564.jpg",
+      "bucket": "BOUNDARY",
+      "pred": 1,
+      "gt": 1,
+      "siglip_score": 0.87695312,
+      "crop_score": 0.97021484
+    },
+    {
+      "image": "raw_fire_relabel_dp_20467.jpg",
+      "bucket": "BOUNDARY",
+      "pred": 0,
+      "gt": 0,
+      "siglip_score": 0.32739258,
+      "crop_score": 0.96875
+    },
+    {
+      "image": "20260116_fs_sjt_00911.jpg",
+      "bucket": "BOUNDARY",
+      "pred": 1,
+      "gt": 1,
+      "siglip_score": 0.98876953,
+      "crop_score": 0.97167969
+    },
+    {
+      "image": "20260320_sjt_fs_1979.jpg",
+      "bucket": "BOUNDARY",
+      "pred": 1,
+      "gt": 1,
+      "siglip_score": 0.73535156,
+      "crop_score": 0.97216797
+    }
+  ],
+  "fixed_params": {
+    "imgsz": 960,
+    "votes_min": 1,
+    "yolo_conf": {
+      "m": 0.1,
+      "s": 0.2,
+      "s_aug": 0.2
+    },
+    "siglip_tau": 0.22,
+    "dino_tau": 0.08,
+    "crop_tau": 0.97,
+    "crop_proposal_conf": 0.03,
+    "crop_dedupe_iou": 0.8,
+    "crop_max": 8
+  },
+  "tolerance": "scores reproduce frozen details within +-1e-3; prediction bits must match exactly (12/12)"
+}

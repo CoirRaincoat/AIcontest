@@ -1,0 +1,13 @@
+== HEAD ==
+874de91aafdd18b30e083ee8801e570936953799
+== branch ==
+main
+== status --porcelain ==
+ M fire_detection/src/evaluate_image_level.py
+ M fire_detection/src/predict_best_fusion.py
+?? audit/
+?? fire_detection/src/batch_safety.py
+== R1 file SHA-256 ==
+6b77616552ae63b59b24c77619f78044fde355bab33c23e62ab225d23f741f37 *fire_detection/src/evaluate_image_level.py
+092bae453990fcf3e74aa4b3920ba71ea89d7fa50e612448dd779893090f2647 *fire_detection/src/predict_best_fusion.py
+5403634bf6206e79decb3e7ed6fea8ac34001333c455faaa3864a58122c5d2aa *fire_detection/src/batch_safety.py

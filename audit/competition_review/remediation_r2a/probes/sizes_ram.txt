@@ -1,0 +1,16 @@
+== venv site-packages size ==
+3.4G	C:/Users/CoirRaincoat/PyCharmMiscProject/.venv/Lib/site-packages
+== venv total ==
+3.4G	C:/Users/CoirRaincoat/PyCharmMiscProject/.venv
+== pip cache ==
+c:\users\coirraincoat\appdata\local\pip\cache
+Package index page cache location (pip v23.3+): c:\users\coirraincoat\appdata\local\pip\cache\http-v2
+Package index page cache location (older pips): c:\users\coirraincoat\appdata\local\pip\cache\http
+Package index page cache size: 136.6 MB
+Number of HTTP files: 484
+Locally built wheels location: c:\users\coirraincoat\appdata\local\pip\cache\wheels
+Locally built wheels size: 0 bytes
+Number of locally built wheels: 0
+== RAM/CPU ==
+15.7
+Intel(R) Core(TM) i7-14650HX

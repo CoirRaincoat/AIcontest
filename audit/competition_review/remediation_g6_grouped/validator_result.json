@@ -1,0 +1,18 @@
+{
+ "coverage": {
+  "extra": 0,
+  "missing": 0,
+  "parsed_keys": 1100,
+  "universe": 1100
+ },
+ "errors": [],
+ "metrics": null,
+ "pred_input": {
+  "relative_path": "audit/competition_review/remediation_g6_grouped/submission_surrogate.json",
+  "sha256": "a39fee81a90199aa01a7a0cd7cd78e18aea13a5f04c418f3b52bb79bb8846d35",
+  "size_bytes": 40046
+ },
+ "tool": "p7-validator-1.0",
+ "verdict": "PASS",
+ "warnings": []
+}

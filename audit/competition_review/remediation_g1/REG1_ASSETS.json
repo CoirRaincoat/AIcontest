@@ -1,0 +1,24 @@
+{
+  "splits": {
+    "train": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\split\\train_images.txt",
+    "calib": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\split\\calib_images.txt",
+    "holdout": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\split\\holdout_images.txt"
+  },
+  "data_yaml": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\dataset\\data_reg1.yaml",
+  "sha256": {
+    "yolo_m": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef",
+    "yolo_s": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f",
+    "yolo_s_aug": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe",
+    "siglip_head": "c7ae93114e7a693f459cb6f239e700dee29c9f39d9009e6b592710ada53220e5",
+    "dino_head": "8b8005f8f43f1d82f1a68f92e770047cb3948914bbeb9b7cf7ea5d84c93f8975",
+    "crop_head": "b57ee5f86115a31fcfda23a2fb14bb8c606bf367399e3a9cbb1ecd36f170647a"
+  },
+  "paths": {
+    "yolo_m": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26m_960\\weights\\best.pt",
+    "yolo_s": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_960\\weights\\best.pt",
+    "yolo_s_aug": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_aug_960\\weights\\best.pt",
+    "siglip_head": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_linear_reg1_seed2026\\best_head.pt",
+    "dino_head": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\dinov3_vitb16_linear_reg1_seed42\\best_head.pt",
+    "crop_head": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_crop_reg1_seed2026\\best_head.pt"
+  }
+}

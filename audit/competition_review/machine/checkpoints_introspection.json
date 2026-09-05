@@ -1,0 +1,158 @@
+{
+  "heads": [
+    {
+      "run": "dinov3_vitb16_linear_seed42",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "hf-hub:timm/vit_base_patch16_dinov3.lvd1689m",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 42,
+      "epoch": 26,
+      "val_loss": 0.41842737793922424,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_crop_v2_seed2026",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 2026,
+      "epoch": 3,
+      "val_loss": 0.26381269097328186,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_linear_long",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 42,
+      "epoch": 9,
+      "val_loss": 0.327981561422348,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_linear_seed17",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 17,
+      "epoch": 19,
+      "val_loss": 0.3292665183544159,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_linear_seed2026",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 2026,
+      "epoch": 24,
+      "val_loss": 0.3254861533641815,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_linear_seed3407",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 3407,
+      "epoch": 15,
+      "val_loss": 0.32846009731292725,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_linear_seed7",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 7,
+      "epoch": 15,
+      "val_loss": 0.31416088342666626,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    },
+    {
+      "run": "siglip2_linear_v1",
+      "feature_dimension": 768,
+      "dropout": 0.2,
+      "model": "google/siglip2-base-patch16-384",
+      "cache_dir": "C:\\AI\\hf_cache\\hub",
+      "seed": 42,
+      "epoch": 9,
+      "val_loss": 0.327981561422348,
+      "class_names": "{0: 'no_fire', 1: 'fire'}",
+      "head_params": 3074,
+      "sha256_16": null
+    }
+  ],
+  "files_per_run": {
+    "dinov3_vitb16_linear_seed42": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_crop_v2_seed2026": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_linear_long": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_linear_seed17": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_linear_seed2026": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_linear_seed3407": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_linear_seed7": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ],
+    "siglip2_linear_v1": [
+      "best_head.pt",
+      "results.json",
+      "training_history.csv",
+      "val_scores.csv"
+    ]
+  }
+}

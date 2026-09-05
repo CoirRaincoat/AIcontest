@@ -1,0 +1,40 @@
+{
+  "method": "frozen SigLIP2 image embeddings + weighted linear classifier",
+  "model": "google/siglip2-base-patch16-384",
+  "train_manifest": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\crop_data_reg1\\train.csv",
+  "val_manifest": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\crop_data_reg1\\val.csv",
+  "train_counts": {
+    "no_fire": 913,
+    "fire": 2800
+  },
+  "class_weights": {
+    "no_fire": 2.033406352683461,
+    "fire": 0.6630357142857143
+  },
+  "best_checkpoint_epoch": 19,
+  "best_checkpoint_val_loss": 0.19147856533527374,
+  "final_val_loss": 0.19147856533527374,
+  "metrics_at_threshold_0_5": {
+    "threshold": 0.5,
+    "precision": 0.9748743718592965,
+    "recall": 0.9494290375203915,
+    "f1": 0.9619834710743802,
+    "tp": 582,
+    "fp": 15,
+    "fn": 31,
+    "tn": 101
+  },
+  "best_validation_metrics": {
+    "threshold": 0.128,
+    "precision": 0.9605055292259084,
+    "recall": 0.9918433931484503,
+    "f1": 0.9759229534510433,
+    "tp": 608,
+    "fp": 25,
+    "fn": 5,
+    "tn": 91
+  },
+  "checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_crop_reg1_seed2026\\best_head.pt",
+  "history": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_crop_reg1_seed2026\\training_history.csv",
+  "val_scores": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\runs_heads\\siglip2_crop_reg1_seed2026\\val_scores.csv"
+}

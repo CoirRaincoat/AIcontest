@@ -1,0 +1,52 @@
+{
+  "models": {
+    "m": {
+      "done": true,
+      "wall_s": 6448.5,
+      "best_sha256": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef",
+      "last_sha256": "9e7891213431228430086a62fbb5b0c1fb065240da6293f5aa2924f4540de269",
+      "run_dir": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26m_960",
+      "args_freezed": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\_train_args_m_formal.json",
+      "config_sha256": "347022571ef82811e9526746afd85333cfba1bab3970c07e7909622ea4b710d4",
+      "env_python": "C:\\fire_envs\\sf2026_min\\Scripts\\python.exe"
+    },
+    "s": {
+      "done": true,
+      "wall_s": 3612.2,
+      "best_sha256": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f",
+      "last_sha256": "7f606174ec8b05719b83db850880e67694e8c6519cccd3857126fa40837181da",
+      "run_dir": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_960",
+      "args_freezed": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\_train_args_s_formal.json",
+      "config_sha256": "0a3fa867c352187a65c50bdfec18cec53a46a52dd5abfc7d8181c2502261b98d",
+      "env_python": "C:\\fire_envs\\sf2026_min\\Scripts\\python.exe"
+    },
+    "s_aug": {
+      "done": true,
+      "wall_s": 4073.9,
+      "best_sha256": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe",
+      "last_sha256": "4e7a1edf5020325b222c8e1b24bd227714497831bb234b817680fd7ccbef086f",
+      "run_dir": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_aug_960",
+      "args_freezed": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\_train_args_s_aug_formal.json",
+      "config_sha256": "6af599b9fc0a0d6ef4cf3dcb4c5ece7180cfb5f6183e40ffa3a106be7a12f502",
+      "env_python": "C:\\fire_envs\\sf2026_min\\Scripts\\python.exe"
+    }
+  },
+  "cumulative_train_s": 14134.62590432167,
+  "resume_ledger": {},
+  "started_at": "2026-08-28T05:27:34",
+  "stage": "finished",
+  "updated_at": "2026-08-28T09:23:09",
+  "heartbeat": {
+    "t": "09:22:51",
+    "pid": 55428,
+    "model": "s_aug",
+    "run_dir": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_aug_960",
+    "mem_MiB": 7264,
+    "temp_C": 68,
+    "util_pct": 58,
+    "disk_free_GB": 79.2,
+    "cumulative_train_s": 10060.7,
+    "latest_checkpoint": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_g1\\formal_runs\\reg1_fire_yolo26s_aug_960\\weights\\last.pt"
+  },
+  "last_measured_per_epoch_s": 50.555875
+}

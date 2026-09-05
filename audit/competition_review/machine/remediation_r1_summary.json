@@ -1,0 +1,63 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "remediation-R1 complete (G3+G4 only)",
+  "authorization": "用户2026-08-27批准仅G3/G4生产代码修复; G1/G2/G5/G6/G7未批(P6延期合并G7)",
+  "baseline": {
+    "git_head": "874de91aafdd18b30e083ee8801e570936953799",
+    "working_tree_pre": "clean except untracked audit/ (own session output; no foreign changes)",
+    "sha256_pre": {
+      "fire_detection/src/evaluate_image_level.py": "73f996fcf5391c5d29a7f51c30c01cfe7910e35ac182e245bcbab3d53288f7a3",
+      "fire_detection/src/predict_best_fusion.py": "e6ba9e7ae8646fd1a4ecef54e7b1466e741aa6a577f9261f01b53bcf6fda4a08"
+    },
+    "sha256_post": {
+      "fire_detection/src/evaluate_image_level.py": "6b77616552ae63b59b24c77619f78044fde355bab33c23e62ab225d23f741f37",
+      "fire_detection/src/predict_best_fusion.py": "092bae453990fcf3e74aa4b3920ba71ea89d7fa50e612448dd779893090f2647",
+      "fire_detection/src/batch_safety.py": "5403634bf6206e79decb3e7ed6fea8ac34001333c455faaa3864a58122c5d2aa"
+    }
+  },
+  "g3_full_universe_evaluator": {
+    "hand_computed_counterexample_missing5tp": {
+      "gt": "10 imgs: img_0..img_5=1, img_6..img_9=0; pred covers img_0=1 + img_6..img_9=0; missing img_1..img_5 (5 true positives)",
+      "strict_recall": "1/6 = 0.166667 (tp=1, r_den=1+0+5)",
+      "legacy_intersection_mirror_UNSAFE": "1.0000 (tp/(tp+fn)=1/1) — inflation delta 0.8333",
+      "old_defect_would_have_reported": "R inflated (E026 analogue +3.0pp); new code refuses with exit 2"
+    },
+    "fail_closed_exit_code": 2,
+    "zero_denominator_policy": "None + undefined_flags (never 0.0)",
+    "contract_parsing": "duplicate-keys/NaN/±Inf/bool/float/str/null/out-of-range all rejected",
+    "full_coverage_cli_output": "byte-identical to pre-R1 five-line block (test C05)"
+  },
+  "g4_per_image_isolation": {
+    "helper_module": "fire_detection/src/batch_safety.py (stdlib only)",
+    "isolation_sites": ["predict_siglip load+inference", "predict_dinov3 load+inference", "predict_yolo per-image (run_items_isolated)", "collect_yolo_proposals per-image (run_items_isolated)", "predict_crop_siglip per-proposal load + batch inference", "fusion loop missing-scores -> fusion failure record"],
+    "incomplete_batch_policy": "submission filename NEVER written; writes <stem>_PARTIAL.json + <stem>_PARTIAL_details.csv + <stem>_failures.json atomically; exit code 3",
+    "normal_path_policy": "same filenames/content as before, now atomic writes; exit 0",
+    "strategy_freeze_guard": "AST assertion pins all 13 argparse defaults (0.22/0.08/0.97/.10/.20/.20/960/0.45/0.0/...) unchanged"
+  },
+  "tests": {
+    "suite": "audit/competition_review/remediation_r1/tests/test_g3_g4.py",
+    "passed": 30,
+    "total": 30,
+    "determinism": "rerun byte-identical TEST_RESULTS.json, rc=0",
+    "method_mix": {"unit": 13, "cli": 5, "static_source_check": 6, "integration_unit": 1, "scope_guard": 1},
+    "verification_level_statement": "单元级验证（含评测器CLI与静态结构断言）；未运行真实端到端GPU推理",
+    "existing_metrics_unchanged": "C01: 新评测器CLI复算 val_gt x val_pred_best_siglip_yolo_dino_crop_live = TP162 FP9 FN3 TN46 P.9474 R.9818 F1.9643 == E019 冻结值"
+  },
+  "not_yet_end_to_end_verified": [
+    "predict_best_fusion.py 未能在本机导入执行(缺 torch/transformers/ultralytics/timm; 属G5范围)",
+    "真实YOLO/VLM前向下的逐图隔离行为(真实坏图注入)未验证(属G7/P6小批范围)",
+    "正式测试集端到端产JSON未彩排(属G6范围)"
+  ],
+  "deliverables": [
+    "remediation_r1/PATCH_PLAN.md",
+    "remediation_r1/CHANGELOG.md",
+    "remediation_r1/TEST_RESULTS.json",
+    "remediation_r1/diffs/g3_evaluate_image_level.patch",
+    "remediation_r1/diffs/g4_predict_best_fusion.patch",
+    "remediation_r1/backups/(2 files + baseline/post sha256)",
+    "remediation_r1/fixtures/g3/",
+    "machine/remediation_r1_summary.json"
+  ],
+  "rollback": "git checkout 874de91 -- fire_detection/src/evaluate_image_level.py fire_detection/src/predict_best_fusion.py && rm fire_detection/src/batch_safety.py (verify vs backups/R1_baseline.sha256)",
+  "next_gates_not_executed": ["G1 重训", "G2 冻阈", "G5 环境", "G6 彩排", "G7/P6 GPU推理计时"]
+}

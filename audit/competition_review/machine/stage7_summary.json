@@ -1,0 +1,52 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "7 complete, paused (阶段6=BLOCKED维持, 8–10待授权)",
+  "user_directive": "决议C: 跳过阶段6转阶段7; 不授权pip安装/其他python环境/GPU推理; 阶段6保持BLOCKED; 12图小批量复现的必要性待阶段7完成后另行判断",
+  "validator": {
+    "file": "audit/competition_review/scripts/p7_validator.py",
+    "version": "p7-validator-1.0",
+    "independence": "指标/解析全新实现, 不import生产src/*; canonical冻结自官方train_coco.json; 每次运行复核输入SHA256锚点",
+    "deps": "标准库 + Pillow(仅preflight-images)",
+    "determinism": "无时间戳+sort_keys+sorted遍历; existing_artifacts_validation.json重跑字节一致(实测)",
+    "run_commands": [
+      "python audit/competition_review/scripts/p7_validator.py freeze",
+      "python audit/competition_review/scripts/p7_selftest.py",
+      "python audit/competition_review/scripts/p7_validator.py validate --pred SUBMISSION.json --manifest audit/competition_review/machine/phase7/canonical_manifest.json [--gt GT.json] [--subset internal_val220] [--out r.json]",
+      "python audit/competition_review/scripts/p7_validator.py preflight-images --dir DIR",
+      "python audit/competition_review/scripts/p7_validate_artifacts.py"
+    ],
+    "exit_codes": {"0": "PASS", "1": "校验失败(结构/覆盖/坏图,附明细)", "2": "致命IO/用法"}
+  },
+  "selftest": {
+    "total": 21, "passed": 21, "overall": "PASS",
+    "categories": ["正常", "缺失真阳×5(F-12核心)", "缺失真阴", "空预测", "额外样本", "重复键", "true/1.0/'1'/NaN/越界值", "大小写合同与键冲突", "路径穿越键", "缓存缺键崩溃等价物", "真实产物对1100全集预期失败", "CLI端到端val子集三方对账(.947368/.981818/.964286)", "坏图夹具逐文件指名rc=1"],
+    "rule": "任一核心用例失败=>不标PASS; 结果含手算推导"
+  },
+  "existing_artifacts_verdict": {
+    "mode_A_val220_strict": "5/5 OK: 独立复算 == E019冻结格口 == 存储metrics sidecar 三方一致; gt取官方train_image.json限制版, 与项目val_gt.json逐键identity=true",
+    "mode_B_full_1100": "5/5 预期失败 missing=880 → 均为内部val产物而非提交件",
+    "files": ["val_pred_best_seed2026_yolo_fusion_thr022", "…dinov3_veto_thr008", "…crop_rescue_thr095", "…crop_rescue_thr097", "…crop_live"]
+  },
+  "canonical_1100_vs_1101_handling": {
+    "canonical_n": 1100,
+    "excluded": {
+      "relative_path": "fire_detection/data/images/train/images/raw_fire_relabel_dp_20402(1).jpg",
+      "sha256_head16": "50264a1ddb0fbeb0",
+      "mechanism": "精确名单匹配显式排除(非模糊去重); 字节级==canonical raw_fire_relabel_dp_20402.jpg",
+      "fail_closed_rules": ["多余文件", "缺失文件", "大小写冲突", "清单漂移(锚哈希不符)"]
+    }
+  },
+  "f12_f14_interception": {
+    "F12": "拦截已证实: 缺5真阳场景校验器报错且strict R=.166667 vs 交集镜像1.0(+delta列); 生产脚本本身未修改",
+    "F14": "检测点已建: preflight-images 对截断/零字节图逐文件指名并rc=1(T20); '整批中止无JSON'生产缺陷仍开放(未掩盖)"
+  },
+  "submittable_json_exists": false,
+  "readiness_caveat": "结构校验能力通过 ≠ 端到端提交就绪: 本地无官方测试集清单、全库无≥1100键JSON[E034]; 正式提交件须测试集到位后由生产链产出并用 validate 无GT模式现场复核",
+  "new_or_upgraded_findings": ["N6(new): 无可提交JSON属阶段性事实,非缺陷,但阻断就绪结论", "F-12/F-14 补充'回归拦截已验证'证据(E032), 状态仍CONFIRMED(生产未整改)"],
+  "docs_updated": ["STATE.md", "FINDINGS.md", "EVIDENCE_INDEX.md(E032–E034)", "REQUIREMENTS_MATRIX.md(R4/R10增注)", "COMMANDS.md", "VALIDATOR_README.md"],
+  "next_options_pending_user": [
+    "阶段8部署效率测量: 需GPU批准(可并入P6 12图票)或跳过→进阶段9答辩风险与安全/隐私静态审计(纯CPU)",
+    "P6小批量GPU复现是否仍有必要: 校验器+三方对账已闭合计算层等价性, 运行时层证据缺口仍在(F-01), 由用户判断A/B/C或永久搁置",
+    "阶段10最终评分与综合报告(METRICS+F11提案+P6票均已完成前置)"
+  ]
+}

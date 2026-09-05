@@ -1,0 +1,79 @@
+{
+  "method": "dHash 8x8(64bit), grayscale LANCZOS; exhaustive val(220) vs train(880)",
+  "val_n": 220,
+  "train_n": 880,
+  "min_hamming_distribution": {
+    "0": 22,
+    "1-4": 41,
+    "5-8": 22,
+    "9-12": 26,
+    "13-16": 58,
+    ">16": 51
+  },
+  "median_min_hamming": 12.0,
+  "le_count_8": 85,
+  "le_count_12": 111,
+  "top12_pairs": [
+    {
+      "val_image": "20260116_fs_sjt_00025.jpg",
+      "nearest_train": "20260116_fs_sjt_00957.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260116_fs_sjt_00429.jpg",
+      "nearest_train": "20260116_fs_sjt_00200.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260116_fs_sjt_00649.jpg",
+      "nearest_train": "20260116_fs_sjt_00353.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260116_fs_sjt_00731.jpg",
+      "nearest_train": "20260116_fs_sjt_00452.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1617.jpg",
+      "nearest_train": "20260320_sjt_fs_1619.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1673.jpg",
+      "nearest_train": "20260320_sjt_fs_1663.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1674.jpg",
+      "nearest_train": "20260320_sjt_fs_1663.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1707.jpg",
+      "nearest_train": "20260320_sjt_fs_1683.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1761.jpg",
+      "nearest_train": "20260320_sjt_fs_1734.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1773.jpg",
+      "nearest_train": "20260320_sjt_fs_1735.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1791.jpg",
+      "nearest_train": "20260320_sjt_fs_1790.jpg",
+      "hamming64": 0
+    },
+    {
+      "val_image": "20260320_sjt_fs_1800.jpg",
+      "nearest_train": "20260320_sjt_fs_1799.jpg",
+      "hamming64": 0
+    }
+  ],
+  "interpretation": "dHash<=10 视为高度相似候选; 典型不同场景对距离应远大(见校准)"
+}

@@ -1,0 +1,72 @@
+{
+  "status": "partial",
+  "failed_image_count": 9,
+  "failure_records": [
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "load_preprocess",
+      "exception_type": "OSError",
+      "message": "image file is truncated (46 bytes not processed)"
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "load_preprocess",
+      "exception_type": "OSError",
+      "message": "image file is truncated (46 bytes not processed)"
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "inference",
+      "exception_type": "IndexError",
+      "message": "list index out of range",
+      "index": 0
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "inference",
+      "exception_type": "IndexError",
+      "message": "list index out of range",
+      "index": 0
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "inference",
+      "exception_type": "IndexError",
+      "message": "list index out of range",
+      "index": 0
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "inference",
+      "exception_type": "IndexError",
+      "message": "list index out of range",
+      "index": 0
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "inference",
+      "exception_type": "IndexError",
+      "message": "list index out of range",
+      "index": 0
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "inference",
+      "exception_type": "IndexError",
+      "message": "list index out of range",
+      "index": 0
+    },
+    {
+      "file": "corrupt_truncated.jpg",
+      "stage": "fusion",
+      "exception_type": "RuntimeError",
+      "message": "missing upstream scores: yolo26m, yolo26s, yolo26s_aug, siglip, dino"
+    }
+  ],
+  "metadata_snapshot": {
+    "status": "partial",
+    "failed_image_count": 9,
+    "failures_file": "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\audit\\competition_review\\remediation_r3\\corrupt\\corrupt_pred_failures.json"
+  },
+  "note": "The real submission file was NOT written. Rerun after fixing/removing the failed inputs."
+}

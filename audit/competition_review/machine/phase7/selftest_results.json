@@ -1,0 +1,296 @@
+{
+ "cases": [
+  {
+   "actual": {
+    "f1_diagnostic": 0.8,
+    "precision": 1.0,
+    "recall": 0.666667,
+    "undefined_flags": []
+   },
+   "expected": "PASS; P=1.0 R=0.666667 F1=0.8; tp2 fn1 tn3",
+   "hand_derivation": "tp=(i0,i2)=2 fp=0 fn=i1=1 tn=(i3..i5)=3; P=2/(2+0)=1; R=2/(2+1)=2/3; F1=2*(2/3)/(5/3)=0.8",
+   "id": "T01",
+   "name": "正常预测完整匹配",
+   "pass": true
+  },
+  {
+   "actual": {
+    "f1_diagnostic": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "undefined_flags": []
+   },
+   "expected": "P=R=F1=1",
+   "hand_derivation": "pred==gt: tp3 fp0 fn0 tn3",
+   "id": "T02",
+   "name": "完美预测",
+   "pass": true
+  },
+  {
+   "actual": {
+    "f1_diagnostic": 0.857143,
+    "precision": 0.75,
+    "recall": 1.0,
+    "undefined_flags": []
+   },
+   "expected": "tp3 fp1 fn0 tn2 → P=3/4=0.75 R=3/3=1.0 F1=2*3/(4+3)=6/7≈0.857143",
+   "hand_derivation": "pred=(gt再加i3): tp3 fp1 fn0; P=3/(3+1)=0.75; R=3/(3+0)=1; F1=2*3/(P分母+R分母)=6/7",
+   "id": "T03",
+   "name": "追加单FP: P降为3/4, R保持1",
+   "pass": true
+  },
+  {
+   "actual": {
+    "inter": {
+     "n_common": 0,
+     "precision_production_semantics": 0.0,
+     "recall_production_semantics": 0.0
+    },
+    "strict": {
+     "f1_diagnostic": null,
+     "precision": null,
+     "recall": 0.0,
+     "undefined_flags": [
+      "precision_undefined_no_predicted_positive"
+     ]
+    },
+    "verdict": "FAIL"
+   },
+   "expected": "FAIL missing=6; strict R=0 P=None(flag); 交集镜像n=0 r=0.0(静默语义)",
+   "hand_derivation": "全集6图均缺→缺失计负: fn=3 R=0/(3)=0; P分母=0→None+flag; 生产交集脚本此处会无告警打印 P=0.0 R=0.0 并继续运行",
+   "id": "T04",
+   "name": "空预测文件被硬拦且给出定义性标注",
+   "pass": true
+  },
+  {
+   "actual": {
+    "delta": 0.833333,
+    "inter": {
+     "n_common": 5,
+     "precision_production_semantics": 1.0,
+     "recall_production_semantics": 1.0
+    },
+    "strict": {
+     "f1_diagnostic": 0.285714,
+     "precision": 1.0,
+     "recall": 0.166667,
+     "undefined_flags": []
+    }
+   },
+   "expected": "FAIL; strict P=1 R=1/6; inter r=1.0 delta=+5/6",
+   "hand_derivation": "保留tp=img_0=1, 缺失5正计FN: P=1/(1+0)=1; R=1/(1+5)=1/6; 交集只看交集5图: tp1 fn0→R=1(假象); 生产evaluate_image_level将静默输出该R",
+   "id": "T05",
+   "name": "缺5真阳: 缺失计FN(strict R=1/6) vs 交集镜像R=1.0 差距被显式量化",
+   "pass": true
+  },
+  {
+   "actual": {
+    "f1_diagnostic": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "undefined_flags": []
+   },
+   "expected": "FAIL missing_neg=1; strict=P1/R1/F11(与完整正确预测一致)",
+   "hand_derivation": "基线为完美预测(tp3 fp0 fn0 tn3); 缺img_4按负类计→tn不变, 所有格口与全对齐相同 → 交集口径对缺失负类毫无感知; 提交键契约损坏仍须非零退出",
+   "id": "T06",
+   "name": "缺负样本: 指标不变但FAIL-CLOSED",
+   "pass": true
+  },
+  {
+   "actual": [
+    "duplicate_json_key"
+   ],
+   "expected": "errors含duplicate_json_key",
+   "hand_derivation": "重复键被标准json.loads静默覆盖(后值1胜出), object_pairs_hook 必须拦截",
+   "id": "T07",
+   "name": "结构回归 duplicate_json_key",
+   "pass": true
+  },
+  {
+   "actual": [
+    "boolean_not_int",
+    "missing_predictions_fail_closed"
+   ],
+   "expected": "errors含boolean_not_int",
+   "hand_derivation": "true/false是Python bool(bool< int), 常规校验会误收",
+   "id": "T08",
+   "name": "结构回归 boolean_not_int",
+   "pass": true
+  },
+  {
+   "actual": [
+    "float_not_int",
+    "missing_predictions_fail_closed"
+   ],
+   "expected": "errors含float_not_int",
+   "hand_derivation": "官方JSON要求整数, 1.0浮点必须拒绝(避免下游隐式取整)",
+   "id": "T09",
+   "name": "结构回归 float_not_int",
+   "pass": true
+  },
+  {
+   "actual": [
+    "missing_predictions_fail_closed",
+    "string_value"
+   ],
+   "expected": "errors含string_value",
+   "hand_derivation": "字符串\"1\"必须拒绝",
+   "id": "T10",
+   "name": "结构回归 string_value",
+   "pass": true
+  },
+  {
+   "actual": [
+    "forbidden_constant"
+   ],
+   "expected": "errors含forbidden_constant",
+   "hand_derivation": "json.loads默认接受NaN/Infinity字面量, parse_constant拦截",
+   "id": "T11",
+   "name": "结构回归 forbidden_constant",
+   "pass": true
+  },
+  {
+   "actual": [
+    "missing_predictions_fail_closed",
+    "value_out_of_range"
+   ],
+   "expected": "errors含value_out_of_range",
+   "hand_derivation": "允许值仅{0,1}",
+   "id": "T12",
+   "name": "结构回归 value_out_of_range",
+   "pass": true
+  },
+  {
+   "actual": {
+    "extra": 1,
+    "missing": 0,
+    "parsed_keys": 7,
+    "universe": 6
+   },
+   "expected": "extra_samples; coverage extra=1",
+   "hand_derivation": "ghost.jpg不在canonical 6图内",
+   "id": "T13a",
+   "name": "额外样本fail-closed",
+   "pass": true
+  },
+  {
+   "actual": {
+    "code": 0,
+    "extra": 0,
+    "missing": 0,
+    "parsed_keys": 6,
+    "universe": 6
+   },
+   "expected": "PASS且无metrics块(明确不带成绩), coverage齐",
+   "hand_derivation": "测试集GT本地不存在时的真实提交形态: 只验结构/覆盖/类型, 不冒充官方综合分",
+   "id": "T13b",
+   "name": "无GT结构模式仍强制覆盖检查",
+   "pass": true
+  },
+  {
+   "actual": [
+    "case_insensitive_key_mismatch",
+    "missing_predictions_fail_closed"
+   ],
+   "expected": "case_insensitive_key_mismatch + missing(img_0)",
+   "hand_derivation": "Windows盘上IMG_0.JPG会命中同一文件, 违反逐字符契约; 不得静默归一化",
+   "id": "T14",
+   "name": "大小写不敏感匹配≠精确匹配, 必须报错",
+   "pass": true
+  },
+  {
+   "actual": [
+    "path_traversal_or_separator"
+   ],
+   "expected": "path_traversal_or_separator",
+   "hand_derivation": "'../'出现在key中",
+   "id": "T15",
+   "name": "路径语法键拒绝",
+   "pass": true
+  },
+  {
+   "actual": [
+    {
+     "code": "pred_case_collision_between_keys",
+     "keys": [
+      "PHOTO.jpg",
+      "photo.jpg"
+     ]
+    }
+   ],
+   "expected": "pred_case_collision_between_keys(photo.jpg/PHOTO.jpg)",
+   "hand_derivation": "同名不同写法在Windows是同一文件, 覆盖语义歧义须失败关闭(镜像F-12缓存键冲突类别)",
+   "id": "T16",
+   "name": "pred内部两键大小写等价冲突",
+   "pass": true
+  },
+  {
+   "actual": {
+    "class": "KeyError",
+    "key": "'img_4.jpg'"
+   },
+   "expected": "KeyError('img_4.jpg')",
+   "hand_derivation": "生产 evaluate_image_level=静默丢(T05已拦), build_cached_crop_rescue L63=裸KeyError崩(此处演示等效缺陷的可捕获取代)",
+   "id": "T17",
+   "name": "缺键访问异常可捕获并被结构化上报(对照生产两端极端)",
+   "pass": true
+  },
+  {
+   "actual": {
+    "extra": 0,
+    "missing": 880,
+    "parsed_keys": 220,
+    "universe": 1100
+   },
+   "expected": "FAIL missing=880 universe=1100 keys=220",
+   "hand_derivation": "val内部产物不是提交件: 对全集缺少880张——证明'不存在可直接提交的1100全量JSON'(本地亦无官方测试集文件名)",
+   "id": "T18",
+   "name": "现存val-220产物对1100全集=结构不合格",
+   "pass": true
+  },
+  {
+   "actual": {
+    "rc": 0,
+    "strict": {
+     "f1_diagnostic": 0.964286,
+     "precision": 0.947368,
+     "recall": 0.981818,
+     "undefined_flags": []
+    },
+    "tp/fp/tn": [
+     162,
+     9,
+     46
+    ]
+   },
+   "expected": "rc=0; tp162 fp9 fn3 tn46 P=.947368 R=.981818 F1=.964286",
+   "hand_derivation": "手算同源E019/E020独立版: tp162/167 P=162/171=.947368; R=162/165=.981818; F1=2PR/(P+R)=.964286 (python计算162/171=0.94736842..., 162/165=0.98181818..., 2*162/(2*162+9+3)=324/336=0.96428571...)",
+   "id": "T19",
+   "name": "CLI端到端: val子集严格复算匹配存储(.9474/.9818)",
+   "pass": true
+  },
+  {
+   "actual": {
+    "corrupt": [
+     "truncated.jpg",
+     "zero.jpg"
+    ],
+    "rc": 1
+   },
+   "expected": "rc=1; corrupt=[truncated.jpg, zero.jpg] 逐文件定位",
+   "hand_derivation": "truncated=合法JPEG前1/3字节→decode失败; zero=空字节; 校验器列明各文件而不整体崩溃(替代生产行为的检测点, 不修生产链)",
+   "id": "T20",
+   "name": "F-14预检: 单/双损坏图指名报告且rc=1",
+   "pass": true
+  }
+ ],
+ "failed": 0,
+ "failed_ids": [],
+ "overall": "PASS",
+ "passed": 21,
+ "platform_note": "审计机Win11/Py3.13; 同机重跑输出一致(无时间戳字段)",
+ "python_version": "3.13.5",
+ "tool_version": "p7-validator-1.0",
+ "total_cases": 21,
+ "validator_marked_usable_only_if_overall_pass": true
+}

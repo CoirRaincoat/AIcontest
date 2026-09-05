@@ -6,9 +6,15 @@ import gc
 import io
 import json
 import os
+import sys
 from pathlib import Path
 
 os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+# R1/G4: single-image fault isolation + atomic/PARTIAL output discipline.
+import batch_safety as bs
 
 import torch
 import torch.nn as nn
@@ -130,6 +136,7 @@ def predict_siglip(
     cache_dir: Path,
     batch_size: int,
     device: torch.device,
+    failures: list[dict] | None = None,
 ) -> dict[str, float]:
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
     model_name = str(checkpoint["model"])
@@ -144,33 +151,51 @@ def predict_siglip(
     ).to(device)
     head.load_state_dict(checkpoint["head_state_dict"])
     head.eval()
+    if failures is None:
+        failures = bs.new_failure_log()
 
     scores: dict[str, float] = {}
     for start in range(0, len(image_paths), batch_size):
         batch_paths = image_paths[start : start + batch_size]
         images = []
+        usable: list[Path] = []
+        # R1/G4: a corrupt image only costs itself; the rest of the batch proceeds.
         for path in batch_paths:
-            with Image.open(path) as image:
-                images.append(image.convert("RGB"))
-        inputs = processor(images=images, return_tensors="pt")
-        inputs = {
-            key: value.to(device)
-            for key, value in inputs.items()
-            if key in {"pixel_values", "pixel_attention_mask", "spatial_shapes"}
-        }
-        with torch.inference_mode():
-            if device.type == "cuda":
-                with torch.autocast(device_type="cuda", dtype=torch.float16):
+            try:
+                with Image.open(path) as image:
+                    images.append(image.convert("RGB"))
+            except Exception as exc:
+                bs.record_failure(failures, path.name, "load_preprocess", exc)
+                continue
+            usable.append(path)
+        if not images:
+            continue
+        try:
+            inputs = processor(images=images, return_tensors="pt")
+            inputs = {
+                key: value.to(device)
+                for key, value in inputs.items()
+                if key in {"pixel_values", "pixel_attention_mask", "spatial_shapes"}
+            }
+            with torch.inference_mode():
+                if device.type == "cuda":
+                    with torch.autocast(device_type="cuda", dtype=torch.float16):
+                        output = backbone.get_image_features(**inputs)
+                        pooled = output.pooler_output if hasattr(output, "pooler_output") else output
+                        logits = head(F.normalize(pooled.float(), dim=1))
+                else:
                     output = backbone.get_image_features(**inputs)
                     pooled = output.pooler_output if hasattr(output, "pooler_output") else output
                     logits = head(F.normalize(pooled.float(), dim=1))
-            else:
-                output = backbone.get_image_features(**inputs)
-                pooled = output.pooler_output if hasattr(output, "pooler_output") else output
-                logits = head(F.normalize(pooled.float(), dim=1))
-            probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().tolist()
+                probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().tolist()
+        except Exception as exc:
+            # The model call is inherently batch-wide: every usable image of the
+            # batch is individually registered so the manifest stays diagnosable.
+            for path in usable:
+                bs.record_failure(failures, path.name, "inference", exc)
+            continue
         scores.update(
-            {path.name: float(score) for path, score in zip(batch_paths, probabilities)}
+            {path.name: float(score) for path, score in zip(usable, probabilities)}
         )
         print(f"SigLIP2: {min(start + batch_size, len(image_paths))}/{len(image_paths)}")
 
@@ -192,37 +217,56 @@ def predict_yolo(
     min_area: float,
     device: str,
     label: str,
+    failures: list[dict] | None = None,
 ) -> dict[str, int]:
     from ultralytics import YOLO
 
     model = YOLO(str(weights))
-    predictions: dict[str, int] = {}
-    for index, image_path in enumerate(image_paths, start=1):
-        results = model.predict(
-            source=str(image_path),
-            imgsz=imgsz,
-            conf=confidence,
-            iou=iou,
-            device=device,
-            verbose=False,
-        )
-        result = results[0]
-        has_fire = False
-        boxes = result.boxes
-        if boxes is not None and len(boxes) > 0:
-            height, width = result.orig_shape
-            image_area = max(float(height * width), 1.0)
-            for box_index in range(len(boxes)):
-                if int(boxes.cls[box_index]) != 0:
-                    continue
-                x1, y1, x2, y2 = boxes.xyxy[box_index].cpu().tolist()
-                area_ratio = max(0.0, (x2 - x1) * (y2 - y1)) / image_area
-                if area_ratio >= min_area:
-                    has_fire = True
-                    break
-        predictions[image_path.name] = int(has_fire)
-        if index % 25 == 0 or index == len(image_paths):
-            print(f"{label}: {index}/{len(image_paths)}")
+    if failures is None:
+        failures = bs.new_failure_log()
+    total = len(image_paths)
+    progress = {"index": 0}
+
+    def _score_one(image_path: Path) -> int:
+        progress["index"] += 1
+        index = progress["index"]
+        try:
+            results = model.predict(
+                source=str(image_path),
+                imgsz=imgsz,
+                conf=confidence,
+                iou=iou,
+                device=device,
+                verbose=False,
+            )
+            result = results[0]
+            has_fire = False
+            boxes = result.boxes
+            if boxes is not None and len(boxes) > 0:
+                height, width = result.orig_shape
+                image_area = max(float(height * width), 1.0)
+                for box_index in range(len(boxes)):
+                    if int(boxes.cls[box_index]) != 0:
+                        continue
+                    x1, y1, x2, y2 = boxes.xyxy[box_index].cpu().tolist()
+                    area_ratio = max(0.0, (x2 - x1) * (y2 - y1)) / image_area
+                    if area_ratio >= min_area:
+                        has_fire = True
+                        break
+        finally:
+            if index % 25 == 0 or index == total:
+                print(f"{label}: {index}/{total}")
+        return int(has_fire)
+
+    # R1/G4: per-image isolation — one unreadable/crashing image is recorded
+    # and skipped instead of aborting the whole run.
+    predictions = bs.run_items_isolated(
+        image_paths,
+        _score_one,
+        stage="inference",
+        failures=failures,
+        key_of=lambda path: path.name,
+    )
 
     model.to("cpu")
     del model
@@ -238,6 +282,7 @@ def predict_dinov3(
     cache_dir: Path,
     batch_size: int,
     device: torch.device,
+    failures: list[dict] | None = None,
 ) -> dict[str, float]:
     os.environ["HF_HOME"] = str(cache_dir.parent)
     os.environ["HF_HUB_CACHE"] = str(cache_dir)
@@ -262,25 +307,41 @@ def predict_dinov3(
     ).to(device)
     head.load_state_dict(checkpoint["head_state_dict"])
     head.eval()
+    if failures is None:
+        failures = bs.new_failure_log()
 
     scores: dict[str, float] = {}
     for start in range(0, len(image_paths), batch_size):
         batch_paths = image_paths[start : start + batch_size]
         tensors = []
+        usable: list[Path] = []
+        # R1/G4: corrupt image costs only itself.
         for path in batch_paths:
-            with Image.open(path) as image:
-                tensors.append(transform(image.convert("RGB")))
-        batch = torch.stack(tensors).to(device)
-        with torch.inference_mode():
-            if device.type == "cuda":
-                with torch.autocast(device_type="cuda", dtype=torch.float16):
+            try:
+                with Image.open(path) as image:
+                    tensors.append(transform(image.convert("RGB")))
+            except Exception as exc:
+                bs.record_failure(failures, path.name, "load_preprocess", exc)
+                continue
+            usable.append(path)
+        if not tensors:
+            continue
+        try:
+            batch = torch.stack(tensors).to(device)
+            with torch.inference_mode():
+                if device.type == "cuda":
+                    with torch.autocast(device_type="cuda", dtype=torch.float16):
+                        features = backbone(batch)
+                else:
                     features = backbone(batch)
-            else:
-                features = backbone(batch)
-            logits = head(F.normalize(features.float(), dim=1))
-            probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().tolist()
+                logits = head(F.normalize(features.float(), dim=1))
+                probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().tolist()
+        except Exception as exc:
+            for path in usable:
+                bs.record_failure(failures, path.name, "inference", exc)
+            continue
         scores.update(
-            {path.name: float(score) for path, score in zip(batch_paths, probabilities)}
+            {path.name: float(score) for path, score in zip(usable, probabilities)}
         )
         print(f"DINOv3: {min(start + batch_size, len(image_paths))}/{len(image_paths)}")
 
@@ -332,14 +393,21 @@ def collect_yolo_proposals(
     iou: float,
     device: str,
     max_proposals: int,
+    failures: list[dict] | None = None,
 ) -> dict[str, list[dict[str, object]]]:
     from ultralytics import YOLO
 
-    proposals = {path.name: [] for path in image_paths}
+    if failures is None:
+        failures = bs.new_failure_log()
+    proposals: dict[str, list[dict[str, object]]] = {
+        path.name: [] for path in image_paths
+    }
+    total = len(image_paths)
     for label, weights in model_settings:
         model = YOLO(str(weights))
-        for index, image_path in enumerate(image_paths, start=1):
-            results = model.predict(
+
+        def _collect_one(image_path: Path, _model=model, _label=label) -> list:
+            results = _model.predict(
                 source=str(image_path),
                 imgsz=imgsz,
                 conf=confidence,
@@ -347,14 +415,15 @@ def collect_yolo_proposals(
                 device=device,
                 verbose=False,
             )
+            found: list[dict[str, object]] = []
             boxes = results[0].boxes
             if boxes is not None:
                 for box_index in range(len(boxes)):
                     if int(boxes.cls[box_index]) != 0:
                         continue
-                    proposals[image_path.name].append(
+                    found.append(
                         {
-                            "model": label,
+                            "model": _label,
                             "confidence": float(boxes.conf[box_index]),
                             "box": tuple(
                                 float(value)
@@ -362,8 +431,19 @@ def collect_yolo_proposals(
                             ),
                         }
                     )
-            if index % 50 == 0 or index == len(image_paths):
-                print(f"Crop proposals {label}: {index}/{len(image_paths)}")
+            return found
+
+        # R1/G4: proposal collection isolates per image too.
+        collected = bs.run_items_isolated(
+            image_paths,
+            _collect_one,
+            stage="inference",
+            failures=failures,
+            key_of=lambda path: path.name,
+        )
+        for name, found in collected.items():
+            proposals[name].extend(found)
+        print(f"Crop proposals {label}: {total}/{total}")
         model.to("cpu")
         del model
         gc.collect()
@@ -414,6 +494,7 @@ def predict_crop_siglip(
     context: float,
     min_size: int,
     device: torch.device,
+    failures: list[dict] | None = None,
 ) -> dict[str, float]:
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
     model_name = str(checkpoint["model"])
@@ -428,6 +509,8 @@ def predict_crop_siglip(
     ).to(device)
     head.load_state_dict(checkpoint["head_state_dict"])
     head.eval()
+    if failures is None:
+        failures = bs.new_failure_log()
 
     path_by_name = {path.name: path for path in image_paths}
     crop_specs = [
@@ -439,41 +522,55 @@ def predict_crop_siglip(
     for start in range(0, len(crop_specs), batch_size):
         batch_specs = crop_specs[start : start + batch_size]
         crops = []
+        usable_specs: list[tuple[str, dict]] = []
+        # R1/G4: a failed crop only drops that proposal — its score simply stays
+        # at -1.0 (below the rescue threshold); the failure remains in the manifest.
         for image_name, proposal in batch_specs:
-            with Image.open(path_by_name[image_name]) as opened:
-                image = opened.convert("RGB")
-            crop_box = expanded_crop_box(
-                tuple(float(value) for value in proposal["box"]),
-                image.width,
-                image.height,
-                context,
-                min_size,
-            )
-            crop = image.crop(crop_box)
-            buffer = io.BytesIO()
-            crop.save(buffer, format="JPEG", quality=95)
-            buffer.seek(0)
-            with Image.open(buffer) as encoded:
-                crops.append(encoded.convert("RGB").copy())
-
-        inputs = processor(images=crops, return_tensors="pt")
-        inputs = {
-            key: value.to(device)
-            for key, value in inputs.items()
-            if key in {"pixel_values", "pixel_attention_mask", "spatial_shapes"}
-        }
-        with torch.inference_mode():
-            if device.type == "cuda":
-                with torch.autocast(device_type="cuda", dtype=torch.float16):
+            try:
+                with Image.open(path_by_name[image_name]) as opened:
+                    image = opened.convert("RGB")
+                crop_box = expanded_crop_box(
+                    tuple(float(value) for value in proposal["box"]),
+                    image.width,
+                    image.height,
+                    context,
+                    min_size,
+                )
+                crop = image.crop(crop_box)
+                buffer = io.BytesIO()
+                crop.save(buffer, format="JPEG", quality=95)
+                buffer.seek(0)
+                with Image.open(buffer) as encoded:
+                    crops.append(encoded.convert("RGB").copy())
+            except Exception as exc:
+                bs.record_failure(failures, image_name, "load_preprocess", exc)
+                continue
+            usable_specs.append((image_name, proposal))
+        if not crops:
+            continue
+        try:
+            inputs = processor(images=crops, return_tensors="pt")
+            inputs = {
+                key: value.to(device)
+                for key, value in inputs.items()
+                if key in {"pixel_values", "pixel_attention_mask", "spatial_shapes"}
+            }
+            with torch.inference_mode():
+                if device.type == "cuda":
+                    with torch.autocast(device_type="cuda", dtype=torch.float16):
+                        output = backbone.get_image_features(**inputs)
+                        pooled = output.pooler_output if hasattr(output, "pooler_output") else output
+                        logits = head(F.normalize(pooled.float(), dim=1))
+                else:
                     output = backbone.get_image_features(**inputs)
                     pooled = output.pooler_output if hasattr(output, "pooler_output") else output
                     logits = head(F.normalize(pooled.float(), dim=1))
-            else:
-                output = backbone.get_image_features(**inputs)
-                pooled = output.pooler_output if hasattr(output, "pooler_output") else output
-                logits = head(F.normalize(pooled.float(), dim=1))
-            probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().tolist()
-        for (image_name, _), score in zip(batch_specs, probabilities):
+                probabilities = torch.softmax(logits, dim=1)[:, 1].cpu().tolist()
+        except Exception as exc:
+            for image_name, _ in usable_specs:
+                bs.record_failure(failures, image_name, "inference", exc)
+            continue
+        for (image_name, _), score in zip(usable_specs, probabilities):
             max_scores[image_name] = max(max_scores[image_name], float(score))
         print(f"Crop SigLIP2: {min(start + batch_size, len(crop_specs))}/{len(crop_specs)}")
 
@@ -486,8 +583,10 @@ def predict_crop_siglip(
     return max_scores
 
 
-def main() -> None:
+def main() -> int:
     args = parse_args()
+    # R1/G4: one shared failure log threaded through every scoring stage.
+    failures = bs.new_failure_log()
     image_paths = iter_images(args.source)
     if not image_paths:
         raise ValueError(f"No supported images found in: {args.source}")
@@ -520,6 +619,7 @@ def main() -> None:
         args.cache_dir,
         args.siglip_batch_size,
         torch_device,
+        failures=failures,
     )
     dino_scores = None
     if args.dino_checkpoint is not None:
@@ -529,6 +629,7 @@ def main() -> None:
             args.cache_dir,
             args.dino_batch_size,
             torch_device,
+            failures=failures,
         )
     yolo_m = predict_yolo(
         image_paths,
@@ -539,6 +640,7 @@ def main() -> None:
         args.min_area,
         args.device,
         "YOLO26m",
+        failures=failures,
     )
     yolo_s = predict_yolo(
         image_paths,
@@ -549,6 +651,7 @@ def main() -> None:
         args.min_area,
         args.device,
         "YOLO26s",
+        failures=failures,
     )
     yolo_s_aug = predict_yolo(
         image_paths,
@@ -559,6 +662,7 @@ def main() -> None:
         args.min_area,
         args.device,
         "YOLO26s augmented",
+        failures=failures,
     )
     crop_scores = None
     if args.crop_checkpoint is not None:
@@ -574,6 +678,7 @@ def main() -> None:
             args.iou,
             args.device,
             args.crop_max_proposals,
+            failures=failures,
         )
         crop_scores = predict_crop_siglip(
             image_paths,
@@ -584,12 +689,34 @@ def main() -> None:
             args.crop_context,
             args.crop_min_size,
             torch_device,
+            failures=failures,
         )
 
     predictions: dict[str, int] = {}
     details: list[dict[str, object]] = []
     for path in image_paths:
         name = path.name
+        # R1/G4: a missing upstream score means that image never really got
+        # scored — record it and move on instead of crashing on KeyError.
+        score_sources = (
+            (("yolo26m", yolo_m), ("yolo26s", yolo_s),
+             ("yolo26s_aug", yolo_s_aug), ("siglip", siglip_scores))
+            + ((() if dino_scores is None else (("dino", dino_scores),)))
+            + ((() if crop_scores is None else (("crop", crop_scores),)))
+        )
+        missing_inputs = [
+            source_name for source_name, table in score_sources if name not in table
+        ]
+        if missing_inputs:
+            bs.record_failure(
+                failures,
+                name,
+                "fusion",
+                RuntimeError(
+                    f"missing upstream scores: {', '.join(missing_inputs)}"
+                ),
+            )
+            continue
         yolo_votes = yolo_m[name] + yolo_s[name] + yolo_s_aug[name]
         siglip_positive = siglip_scores[name] >= args.siglip_threshold
         dino_positive = (
@@ -619,10 +746,44 @@ def main() -> None:
         )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(
-        json.dumps(predictions, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
     details_path = args.output.with_name(f"{args.output.stem}_details.csv")
+    metadata_path = args.output.with_name(f"{args.output.stem}_metadata.json")
+
+    if failures:
+        # R1/G4: incomplete batch — the real submission filename is never used.
+        # Diagnosable PARTIAL products + manifest instead, exit code 3.
+        details_csv_text = None
+        if details:
+            csv_buffer = io.StringIO()
+            writer = csv.DictWriter(csv_buffer, fieldnames=list(details[0]))
+            writer.writeheader()
+            writer.writerows(details)
+            details_csv_text = "﻿" + csv_buffer.getvalue()  # match utf-8-sig
+        partial_metadata = {
+            "status": "partial",
+            "failed_image_count": len(failures),
+            "failures_file": str(metadata_path.with_name(
+                f"{args.output.stem}_failures.json"
+            ).resolve()),
+        }
+        written_products = bs.write_partial_products(
+            args.output,
+            predictions,
+            details_csv_text=details_csv_text,
+            metadata=partial_metadata,
+            failures=failures,
+        )
+        print("=" * 72)
+        print("INCOMPLETE BATCH — submission file was NOT written.")
+        print(bs.summarize_failures(failures))
+        print(f"Partial products: {sorted(str(p) for p in written_products.values())}")
+        print("Fix or remove the failed inputs and rerun to obtain a full result.")
+        print("=" * 72)
+        return bs.EXIT_PARTIAL_FAILURES
+
+    bs.atomic_write_text(
+        args.output, json.dumps(predictions, ensure_ascii=False, indent=2)
+    )
     with details_path.open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(details[0]))
         writer.writeheader()
@@ -676,12 +837,13 @@ def main() -> None:
         "submission_file": str(args.output.resolve()),
         "details_file": str(details_path.resolve()),
     }
-    metadata_path = args.output.with_name(f"{args.output.stem}_metadata.json")
-    metadata_path.write_text(
-        json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8"
+    bs.atomic_write_text(
+        metadata_path, json.dumps(metadata, ensure_ascii=False, indent=2)
     )
     print(json.dumps(metadata, ensure_ascii=False, indent=2))
+    print(f"Batch complete: {len(predictions)}/{len(image_paths)} images scored.")
+    return bs.EXIT_OK
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

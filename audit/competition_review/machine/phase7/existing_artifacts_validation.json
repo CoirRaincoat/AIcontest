@@ -1,0 +1,264 @@
+{
+ "anchors_verified_by_validator_on_every_load": [
+  "train_coco.json_sha256",
+  "train_image.json_sha256"
+ ],
+ "artifacts": {
+  "val_pred_best_seed2026_yolo_fusion_thr022": {
+   "aggregate_row_verdict": "OK",
+   "mode_A_val_subset": {
+    "coverage": {
+     "extra": 0,
+     "missing": 0,
+     "parsed_keys": 220,
+     "universe": 220
+    },
+    "exit_code": 0,
+    "frozen_expect_E019": {
+     "P": 0.9415,
+     "R": 0.9758,
+     "fn": 4,
+     "fp": 10,
+     "tn": 45,
+     "tp": 161
+    },
+    "matches_frozen_stage3": true,
+    "matches_stored_sidecar": true,
+    "recomputed_strict": {
+     "P": 0.9415,
+     "R": 0.9758,
+     "fn": 4,
+     "fp": 10,
+     "tn": 45,
+     "tp": 161
+    },
+    "stored_sidecar_file": "val_pred_best_seed2026_yolo_fusion_thr022_metrics.json",
+    "stored_sidecar_values": {
+     "precision": 0.9415204678362573,
+     "recall": 0.9757575757575757
+    },
+    "structural_errors": 0,
+    "verdict": "PASS"
+   },
+   "mode_B_full_1100": {
+    "coverage": {
+     "extra": 0,
+     "missing": 880,
+     "parsed_keys": 220,
+     "universe": 1100
+    },
+    "exit_code": 1,
+    "expected_fail_missing880_confirmed": true,
+    "interpretation": "内部val产物≠提交件; 若官方测试集尺寸未知, 提交时须以其清单为准重新校验",
+    "verdict": "FAIL"
+   }
+  },
+  "val_pred_best_siglip_yolo_dino_crop_live": {
+   "aggregate_row_verdict": "OK",
+   "mode_A_val_subset": {
+    "coverage": {
+     "extra": 0,
+     "missing": 0,
+     "parsed_keys": 220,
+     "universe": 220
+    },
+    "exit_code": 0,
+    "frozen_expect_E019": {
+     "P": 0.9474,
+     "R": 0.9818,
+     "fn": 3,
+     "fp": 9,
+     "tn": 46,
+     "tp": 162
+    },
+    "matches_frozen_stage3": true,
+    "matches_stored_sidecar": "no_sidecar",
+    "recomputed_strict": {
+     "P": 0.9474,
+     "R": 0.9818,
+     "fn": 3,
+     "fp": 9,
+     "tn": 46,
+     "tp": 162
+    },
+    "stored_sidecar_file": "val_pred_best_siglip_yolo_dino_crop_live_metrics.json",
+    "stored_sidecar_values": null,
+    "structural_errors": 0,
+    "verdict": "PASS"
+   },
+   "mode_B_full_1100": {
+    "coverage": {
+     "extra": 0,
+     "missing": 880,
+     "parsed_keys": 220,
+     "universe": 1100
+    },
+    "exit_code": 1,
+    "expected_fail_missing880_confirmed": true,
+    "interpretation": "内部val产物≠提交件; 若官方测试集尺寸未知, 提交时须以其清单为准重新校验",
+    "verdict": "FAIL"
+   }
+  },
+  "val_pred_best_siglip_yolo_dino_crop_rescue_thr095": {
+   "aggregate_row_verdict": "OK",
+   "mode_A_val_subset": {
+    "coverage": {
+     "extra": 0,
+     "missing": 0,
+     "parsed_keys": 220,
+     "universe": 220
+    },
+    "exit_code": 0,
+    "frozen_expect_E019": {
+     "P": 0.9422,
+     "R": 0.9879,
+     "fn": 2,
+     "fp": 10,
+     "tn": 45,
+     "tp": 163
+    },
+    "matches_frozen_stage3": true,
+    "matches_stored_sidecar": true,
+    "recomputed_strict": {
+     "P": 0.9422,
+     "R": 0.9879,
+     "fn": 2,
+     "fp": 10,
+     "tn": 45,
+     "tp": 163
+    },
+    "stored_sidecar_file": "val_pred_best_siglip_yolo_dino_crop_rescue_thr095_metrics.json",
+    "stored_sidecar_values": {
+     "precision": 0.9421965317919075,
+     "recall": 0.9878787878787879
+    },
+    "structural_errors": 0,
+    "verdict": "PASS"
+   },
+   "mode_B_full_1100": {
+    "coverage": {
+     "extra": 0,
+     "missing": 880,
+     "parsed_keys": 220,
+     "universe": 1100
+    },
+    "exit_code": 1,
+    "expected_fail_missing880_confirmed": true,
+    "interpretation": "内部val产物≠提交件; 若官方测试集尺寸未知, 提交时须以其清单为准重新校验",
+    "verdict": "FAIL"
+   }
+  },
+  "val_pred_best_siglip_yolo_dino_crop_rescue_thr097": {
+   "aggregate_row_verdict": "OK",
+   "mode_A_val_subset": {
+    "coverage": {
+     "extra": 0,
+     "missing": 0,
+     "parsed_keys": 220,
+     "universe": 220
+    },
+    "exit_code": 0,
+    "frozen_expect_E019": {
+     "P": 0.9474,
+     "R": 0.9818,
+     "fn": 3,
+     "fp": 9,
+     "tn": 46,
+     "tp": 162
+    },
+    "matches_frozen_stage3": true,
+    "matches_stored_sidecar": true,
+    "recomputed_strict": {
+     "P": 0.9474,
+     "R": 0.9818,
+     "fn": 3,
+     "fp": 9,
+     "tn": 46,
+     "tp": 162
+    },
+    "stored_sidecar_file": "val_pred_best_siglip_yolo_dino_crop_rescue_thr097_metrics.json",
+    "stored_sidecar_values": {
+     "precision": 0.9473684210526315,
+     "recall": 0.9818181818181818
+    },
+    "structural_errors": 0,
+    "verdict": "PASS"
+   },
+   "mode_B_full_1100": {
+    "coverage": {
+     "extra": 0,
+     "missing": 880,
+     "parsed_keys": 220,
+     "universe": 1100
+    },
+    "exit_code": 1,
+    "expected_fail_missing880_confirmed": true,
+    "interpretation": "内部val产物≠提交件; 若官方测试集尺寸未知, 提交时须以其清单为准重新校验",
+    "verdict": "FAIL"
+   }
+  },
+  "val_pred_best_siglip_yolo_dinov3_veto_thr008": {
+   "aggregate_row_verdict": "OK",
+   "mode_A_val_subset": {
+    "coverage": {
+     "extra": 0,
+     "missing": 0,
+     "parsed_keys": 220,
+     "universe": 220
+    },
+    "exit_code": 0,
+    "frozen_expect_E019": {
+     "P": 0.9471,
+     "R": 0.9758,
+     "fn": 4,
+     "fp": 9,
+     "tn": 46,
+     "tp": 161
+    },
+    "matches_frozen_stage3": true,
+    "matches_stored_sidecar": true,
+    "recomputed_strict": {
+     "P": 0.9471,
+     "R": 0.9758,
+     "fn": 4,
+     "fp": 9,
+     "tn": 46,
+     "tp": 161
+    },
+    "stored_sidecar_file": "val_pred_best_siglip_yolo_dinov3_veto_thr008_metrics.json",
+    "stored_sidecar_values": {
+     "precision": 0.9470588235294117,
+     "recall": 0.9757575757575757
+    },
+    "structural_errors": 0,
+    "verdict": "PASS"
+   },
+   "mode_B_full_1100": {
+    "coverage": {
+     "extra": 0,
+     "missing": 880,
+     "parsed_keys": 220,
+     "universe": 1100
+    },
+    "exit_code": 1,
+    "expected_fail_missing880_confirmed": true,
+    "interpretation": "内部val产物≠提交件; 若官方测试集尺寸未知, 提交时须以其清单为准重新校验",
+    "verdict": "FAIL"
+   }
+  }
+ },
+ "canonical_n": 1100,
+ "gt_identity_check_vs_project_val_gt_json": {
+  "keys_equal": true,
+  "n": 220,
+  "values_equal": true
+ },
+ "gt_source_independence_note": "GT=官方 train_image.json 按 internal_val220_members 限制(project val_gt.json仅作一致性对照)",
+ "summary": {
+  "full_universe_expected_fail_confirmed_for_all": true,
+  "rows_OK": 5,
+  "rows_total": 5,
+  "strict_recompute_all_match_frozen_and_stored": true
+ },
+ "tool_version": "p7-validator-1.0"
+}

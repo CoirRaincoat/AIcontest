@@ -1,0 +1,49 @@
+=== INTERPRETER A: current venv python (PATH default) ===
+executable: C:\Users\CoirRaincoat\PyCharmMiscProject\.venv\Scripts\python.exe
+version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+platform: Windows-11-10.0.26200-SP0
+architecture: AMD64
+PKG torch==2.12.1
+PKG torchvision==0.27.1
+PKG torchaudio MISSING
+PKG ultralytics MISSING
+PKG transformers MISSING
+PKG timm MISSING
+PKG gradio MISSING
+PKG safetensors MISSING
+PKG numpy==2.4.5
+PKG pillow==12.0.0
+PKG opencv-python==4.12.0.88
+PKG huggingface-hub==1.17.0
+PKG accelerate MISSING
+PKG pandas==3.0.3
+PKG matplotlib==3.10.9
+PKG onnx MISSING
+PKG onnxruntime MISSING
+PKG nvidia-cudnn-cu12 MISSING
+PKG nvidia-cublas-cu12 MISSING
+
+=== INTERPRETER B: system Python313 ===
+executable: C:\Users\CoirRaincoat\AppData\Local\Programs\Python\Python313\python.exe
+version: 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
+platform: Windows-11-10.0.26200-SP0
+architecture: AMD64
+PKG torch==2.12.0
+PKG torchvision MISSING
+PKG torchaudio MISSING
+PKG ultralytics MISSING
+PKG transformers MISSING
+PKG timm MISSING
+PKG gradio MISSING
+PKG safetensors MISSING
+PKG numpy==2.2.4
+PKG pillow==12.2.0
+PKG opencv-python==4.11.0.86
+PKG huggingface-hub MISSING
+PKG accelerate MISSING
+PKG pandas==3.0.3
+PKG matplotlib==3.10.9
+PKG onnx MISSING
+PKG onnxruntime MISSING
+PKG nvidia-cudnn-cu12 MISSING
+PKG nvidia-cublas-cu12 MISSING

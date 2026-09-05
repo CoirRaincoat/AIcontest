@@ -1,0 +1,32 @@
+{
+  "markers": [
+    "GROUPED_MODEL_REG1_RETRAINED",
+    "SURROGATE_REHEARSAL_NOT_OFFICIAL_SUBMISSION"
+  ],
+  "disclaimer": "Surrogate rehearsal only. Not an official submission; does NOT auto-promote the reg1 weights over production.",
+  "model": "GROUPED reg1 retrained chain (content-cluster isolated)",
+  "assets_sha256": {
+    "yolo_m": "39e6d16c65be78583b9aaa933e2997136492c8bbd020050c5a7dbb1b89ce62ef",
+    "yolo_s": "aaa492d36f3ac9e44bad5d3309ca73b9e269d6ef5299974a20bd03f0fa737d2f",
+    "yolo_s_aug": "28520644f85195f05952a4d10b89771ac44cc814fab5cda719ad0f1d7e456bbe",
+    "siglip_head": "c7ae93114e7a693f459cb6f239e700dee29c9f39d9009e6b592710ada53220e5",
+    "dino_head": "8b8005f8f43f1d82f1a68f92e770047cb3948914bbeb9b7cf7ea5d84c93f8975",
+    "crop_head": "b57ee5f86115a31fcfda23a2fb14bb8c606bf367399e3a9cbb1ecd36f170647a"
+  },
+  "predict_rc": 0,
+  "validator_rc": 0,
+  "submission_json_sha256": "a39fee81a90199aa01a7a0cd7cd78e18aea13a5f04c418f3b52bb79bb8846d35",
+  "checks": {
+    "n_keys": 1100,
+    "exact_1100": true,
+    "coverage_exact": true,
+    "no_extra": true,
+    "no_missing": true,
+    "no_duplicate": true,
+    "all_int_0_1": true,
+    "no_nan_inf": true,
+    "no_partial_artifact": true
+  },
+  "wall_s": 368.2,
+  "pass": true
+}

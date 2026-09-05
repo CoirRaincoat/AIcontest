@@ -1,0 +1,50 @@
+{
+  "audit_id": "SF2026-01-AUDIT-20260827-R1",
+  "stage": "4-5 complete, paused",
+  "user_directives_covered": ["①阶段4批准(已全部执行)", "②F-11有限批准(提案已交付,未训练)", "④F-12/F-14/应用规则事后性核查(已完成)", "③阶段6转审批单"],
+  "fixed_threshold_panel": {
+    "rule_documented": "(YOLO votes>=1 [conf .10/.20/.20]) AND SigLIP>=0.22 AND DINOv3>=0.08) OR crop_siglip>=0.97",
+    "base": {"tp": 161, "fp": 9, "fn": 4, "tn": 46, "P": 0.9471, "R": 0.9758},
+    "batch_chain_S3@097_S4live": {"tp": 162, "fp": 9, "fn": 3, "tn": 46, "P": 0.9474, "R": 0.9818, "f1": 0.9643},
+    "app_full_rescue_posthoc_F15": {"tp": 164, "fp": 9, "fn": 1, "tn": 46, "P": 0.948, "R": 0.9939, "f1": 0.9704,
+      "label": "同集事后候选规则[E028]，非预先注册"},
+    "leak_caveat_mandatory": "可能受近邻帧/序列泄漏影响，偏乐观[F-11/E025]",
+    "evidence_grade": "A"
+  },
+  "bootstrap_ci_95_B10000_seed20260827": {
+    "image_iid": {"P": [0.9245, 0.973], "R": [0.9896, 1.0]},
+    "family_cluster_5clusters_weak": {"P": [0.8852, 1.0], "R": [0.9872, 1.0],
+      "caveat": "仅5簇且为命名启发式，区间稳定性差，仅供参考"}
+  },
+  "threshold_sensitivity": {
+    "scan_points_siglip": 277,
+    "current_tau_equals_argmax_f1": {"tau": 0.22, "F1": 0.9643, "implication": "印证同集选优[N3/F-15]"},
+    "precision_leaning_candidate": {"tau": 0.5542, "P": 0.9613, "R": 0.903},
+    "recall_leaning_in_final_rule": null,
+    "usage_rule": "仅诊断；禁止用于提交择优"
+  },
+  "finding_status_changes": [
+    {"id": "F-11", "old": "CONFIRMED(命名模式98.2%)", "new": "CONFIRMED + 内容级硬证据: dHash距离0共22对、38.6%<=8[E025]；重划提案可复算(E029)且明示不可消除既有权重训练污染"},
+    {"id": "F-12", "old": "静态机制确认", "new": "机制量化A: 缺5真阳=>交集口径R .9938 vs 严格 .9636(+3.0pp零告警)[E026]；历史产物全覆盖未受影响"},
+    {"id": "F-14", "old": "CONFIRMED(静态)", "new": "+ 现存0/1101坏图(E027)；风险定性为提交期前瞻性操作面风险"},
+    {"id": "F-15(new)", "reason": "应用全图补救规则无预先固定痕迹：search网格无dino轴/无(0.85,0.70)行/README晚于产物[E028]"}
+  ],
+  "split_proposal_digest": {
+    "method": "dHash64<=8 union-find 整簇多数票搬运",
+    "clusters": 773, "moved_images": 84,
+    "new_split": "train 922 / val 178 (pos 734/130)",
+    "overlap_after": {"cross_pairs_le8": 0, "observed_max_cross_hamming": 55, "borderline_d9_12_pairs_manual_review": 32},
+    "retrain_cost_draft": "GPU≈5–6h级(YOLO三项4.66h实测+特征增量+头训练)，磁盘2–3GB —— 仅方案待另批",
+    "training_executed": false
+  },
+  "p6_ticket": {
+    "file": "P6_APPROVAL_REQUEST.md",
+    "sections": ["目的与假设H1-H3", "入口/配置/权重+SHA256-16", "12图冻结选样规则", "固定阈值与预期输出", "GPU<4GB/<30min/<200MB估算", "审计目录输出+删除即回滚", "依赖缺失三选项A装依赖/B给路径/C跳过转阶段7"],
+    "status": "BLOCKED待决议"
+  },
+  "next_action_no_approval_needed": "阶段7: 官方格式严格校验器 + 合成smoke(含坏图注入检测F-14中止点) → SUBMISSION_CHECKLIST.md",
+  "artifacts_this_stage": ["METRICS.md", "F11_SPLIT_PROPOSAL.md", "P6_APPROVAL_REQUEST.md", "scripts/audit_phase45_f11_split.py",
+    "machine/bootstrap_ci.json", "machine/threshold_scan_siglip.csv", "machine/near_duplicate_hash.json", "machine/near_dup_pairs.csv",
+    "machine/experiments_table.csv", "machine/checkpoints_introspection.json", "machine/corrupt_scan.json", "machine/provenance_app_rule.json",
+    "machine/f11_proposed_split.json", "machine/f11_moved_files.csv", "machine/f12_metric_caliber_demo.json"]
+}

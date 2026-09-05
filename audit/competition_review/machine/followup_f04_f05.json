@@ -1,0 +1,51 @@
+{
+  "f04": {
+    "extra_file": "raw_fire_relabel_dp_20402(1).jpg",
+    "canonical_file": "raw_fire_relabel_dp_20402.jpg",
+    "sha256_extra": "50264a1ddb0fbeb0103ad194bb25c7c2f3691ea5ccad84ef338a03d80415fef2",
+    "sha256_canonical": "50264a1ddb0fbeb0103ad194bb25c7c2f3691ea5ccad84ef338a03d80415fef2",
+    "byte_identical": true,
+    "bytes": [
+      231172,
+      231172
+    ]
+  },
+  "f05_app_rule_at_documented_thresholds": {
+    "rule": "S4_live(prediction=base OR crop>=0.97) OR (SigLIP2>=0.85 AND DINOv3>=0.70)",
+    "n_images": 220,
+    "metrics": {
+      "tp": 164,
+      "fp": 9,
+      "fn": 1,
+      "tn": 46,
+      "precision": 0.948,
+      "recall": 0.9939,
+      "f1": 0.9704
+    },
+    "doc_claim": {
+      "precision": 0.948,
+      "recall": 0.9939
+    },
+    "matches_doc_claim": true,
+    "changed_count": 2,
+    "changed_detail": [
+      {
+        "image_name": "raw_fire_relabel_dp_20563.jpg",
+        "truth": 1,
+        "base_pred": 0,
+        "new_pred": 1,
+        "siglip_score": 0.85449219,
+        "dino_score": 0.96874726
+      },
+      {
+        "image_name": "raw_fire_relabel_dp_20611.jpg",
+        "truth": 1,
+        "base_pred": 0,
+        "new_pred": 1,
+        "siglip_score": 0.91845703,
+        "dino_score": 0.7296921
+      }
+    ]
+  },
+  "f05_sanity_live_csv_equals_json": true
+}

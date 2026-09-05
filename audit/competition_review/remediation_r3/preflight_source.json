@@ -1,0 +1,9 @@
+{
+ "check": "preflight-images",
+ "corrupt": [],
+ "corrupt_count": 0,
+ "directory": "fire_detection/data/images/train/images",
+ "files_seen": 1101,
+ "images_checked": 1101,
+ "tool": "p7-validator-1.0"
+}

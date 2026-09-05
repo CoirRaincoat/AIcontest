@@ -1,0 +1,246 @@
+{
+  "baseline": {
+    "batch_safety_sha256_new": "5403634bf6206e79decb3e7ed6fea8ac34001333c455faaa3864a58122c5d2aa",
+    "evaluate_image_level_sha256_post": "6b77616552ae63b59b24c77619f78044fde355bab33c23e62ab225d23f741f37",
+    "evaluate_image_level_sha256_pre": "73f996fcf5391c5d29a7f51c30c01cfe7910e35ac182e245bcbab3d53288f7a3",
+    "git_head": "874de91aafdd18b30e083ee8801e570936953799",
+    "predict_best_fusion_sha256_post": "092bae453990fcf3e74aa4b3920ba71ea89d7fa50e612448dd779893090f2647",
+    "predict_best_fusion_sha256_pre": "e6ba9e7ae8646fd1a4ecef54e7b1466e741aa6a577f9261f01b53bcf6fda4a08"
+  },
+  "cases": [
+    {
+      "id": "__main__.TestG3CLI.test_c01_full_coverage_regression_matches_E019",
+      "message": "",
+      "method": "cli",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3CLI.test_c02_missing5tp_cli_fails_closed_with_diagnostics",
+      "message": "",
+      "method": "cli",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3CLI.test_c03_cli_duplicate_key_rejected",
+      "message": "",
+      "method": "cli",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3CLI.test_c04_cli_invalid_json_rejected",
+      "message": "",
+      "method": "cli",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3CLI.test_c05_backward_compatible_stdout_full_coverage",
+      "message": "",
+      "method": "cli",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3Core.test_g01_full_coverage_matches_manual",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3Core.test_g02_missing5tp_strict_recall_not_inflated",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3Core.test_g03_missing_tn_flagged_but_strict_recall_stable",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3Core.test_g04_extra_prediction_listed_and_not_counted",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3Core.test_g05_zero_denominators_undefined_not_zero",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3StrictParser.test_g06_duplicate_key_rejected",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3StrictParser.test_g07_nan_literal_rejected",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3StrictParser.test_g08_illegal_value_taxonomy",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG3StrictParser.test_g08b_valid_mapping_loads",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h01_atomic_write_creates_no_tmp_residue",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h02_atomic_overwrite_replaces_and_is_deterministic",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h03_record_failure_structure_and_truncation",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h04_exit_codes_distinct_and_nonzero",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h05_isolation_continues_on_error_and_records",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h07_first_middle_last_positions_isolated",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h08_multiple_simultaneous_failures_all_listed",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h09_partial_products_never_touch_submission_name",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4BatchSafety.test_h09b_partial_details_optional",
+      "message": "",
+      "method": "unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4StaticSource.test_s01_no_threshold_or_policy_drift",
+      "message": "",
+      "method": "static_source_check",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4StaticSource.test_s02_isolation_wired_at_every_per_image_site",
+      "message": "",
+      "method": "static_source_check",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4StaticSource.test_s03_output_discipline_present",
+      "message": "",
+      "method": "static_source_check",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4StaticSource.test_s04_shared_failure_log_threaded_through_all_stages",
+      "message": "",
+      "method": "static_source_check",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4StaticSource.test_s05_batch_safety_module_is_stdlib_only",
+      "message": "",
+      "method": "static_source_check",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "__main__.TestG4ValidatorRejectsPartial.test_v01_partial_submission_is_fail_closed_by_p7_validator",
+      "message": "",
+      "method": "integration_unit",
+      "pass": true,
+      "status": "pass"
+    },
+    {
+      "id": "scope.only_authorized_files_changed",
+      "message": "git status matches the authorized R1 footprint",
+      "method": "static_source_check",
+      "pass": true,
+      "status": "pass"
+    }
+  ],
+  "g3_regression": {
+    "artifact_pair": [
+      "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\outputs\\val_gt.json",
+      "C:\\Users\\CoirRaincoat\\PyCharmMiscProject\\AIcontest\\AI\\fire_detection\\outputs\\val_pred_best_siglip_yolo_dino_crop_live.json"
+    ],
+    "expected_E019": {
+      "f1": "0.9643",
+      "fn": 3,
+      "fp": 9,
+      "p": "0.9474",
+      "r": "0.9818",
+      "tn": 46,
+      "tp": 162
+    },
+    "missing5tp_strict_recall": "1/6 = 0.166667 (NOT 0.9938; legacy intersection mirror = 1.0000)"
+  },
+  "not_a_claim_of": "真实端到端推理验证 / real end-to-end inference validation",
+  "suite": "remediation_r1/test_g3_g4.py",
+  "summary": {
+    "all_pass": true,
+    "passed": 30,
+    "total": 30
+  },
+  "verification_level": "单元级验证 (unit + cli + static_source_check + integration_unit)。未运行真实端到端GPU推理；YOLO/VLM前向验证依赖未批准的G5/G7。"
+}

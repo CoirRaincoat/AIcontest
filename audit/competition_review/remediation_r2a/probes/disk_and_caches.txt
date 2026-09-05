@@ -1,0 +1,12 @@
+== df -h (drives) ==
+Filesystem            Size  Used Avail Use% Mounted on
+C:/Program Files/Git  300G  202G   99G  68% /
+D:                    175G  163G   12G  94% /d
+
+== targeted sizes ==
+2.4G	fire_detection
+3.0G	external_datasets
+1.8G	hf_cache
+
+== venv site-packages ==
+3.4G	C:/Users/CoirRaincoat/PyCharmMiscProject/.venv/Lib/site-packages

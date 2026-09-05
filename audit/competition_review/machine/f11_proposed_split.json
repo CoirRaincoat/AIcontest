@@ -1,0 +1,75 @@
+{
+  "seed_tag": 20260827,
+  "frozen_rule": [
+    "dHash64 grayscale LANCZOS",
+    "union-find hamming<=8",
+    "regroup whole clusters by membership majority (ties: lexicographic-first member's side)",
+    "no relabeling, no deletion, proposals only"
+  ],
+  "clustering": {
+    "images": 1100,
+    "pairs_within_d8": 1468,
+    "n_clusters": 773,
+    "top10_cluster_sizes": [
+      45,
+      26,
+      19,
+      19,
+      19,
+      18,
+      16,
+      12,
+      12,
+      12
+    ],
+    "singleton_clusters": 683
+  },
+  "current_split_summary": {
+    "train_n": 880,
+    "val_n": 220,
+    "pos_total": 864,
+    "pos_train": 699,
+    "pos_val": 165,
+    "pos_rate": 0.7855,
+    "train_pos_rate": 0.7943,
+    "val_pos_rate": 0.75
+  },
+  "proposed_split_summary": {
+    "train_n": 922,
+    "val_n": 178,
+    "pos_total": 864,
+    "pos_train": 734,
+    "pos_val": 130,
+    "pos_rate": 0.7855,
+    "train_pos_rate": 0.7961,
+    "val_pos_rate": 0.7303
+  },
+  "n_images_moved": 84,
+  "overlap_check_after_regroup": {
+    "cross_pairs_le8": 0,
+    "list_first20": [],
+    "observed_max_cross_hamming": 55,
+    "note": "dHash is lossy; 'zero candidates' <= means none detected at d<=8, absolute isolation needs pixel/retry-level check"
+  },
+  "min_near_distance_to_train": {
+    "before_regroup": {
+      "val_n": 220,
+      "min_dist_hist_p50": 12,
+      "pairs_min_le8": 85,
+      "pairs_min_le12": 111,
+      "frac_le8": 0.3864
+    },
+    "after_regroup": {
+      "val_n": 178,
+      "min_dist_hist_p50": 16,
+      "pairs_min_le8": 0,
+      "pairs_min_le12": 32,
+      "frac_le8": 0.0
+    }
+  },
+  "caveats": [
+    "此为事后建议划分：无论怎样重划，都改变不了当前权重已在全量1100图上训练的事实（用户指令原文）——它只用于将来从初始权重重训的评估协议。",
+    "dHash≤8是预登记相似阈值；簇边界附近的图像（9..16）不保证同源。",
+    "移动清单含大簇整体搬运，可能显著改变两期划分的差异面，提交官方口径仍须使用当前(受污染)流程的诚实标注成绩。"
+  ]
+}
